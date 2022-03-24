@@ -5,3 +5,4 @@
 .local
 ./shiny_app_logs/*.log
 ./gbm_pdx_str/*.Rprofvis
+./gbm_pdx_str/data/initial_data_prep/*/
