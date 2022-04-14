@@ -15,4 +15,3 @@ masters <- function(shared_allele,
 
   return(score)
 }
-
