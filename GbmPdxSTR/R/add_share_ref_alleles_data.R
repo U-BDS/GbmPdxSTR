@@ -1,6 +1,3 @@
-#' @include summarize_allele_stats.R
-NULL
-
 #' add_share_ref_alleles_data
 #' Adds the number of total alleles per marker and the number of shared alleles
 #' between markers in the reference vs query. The output data.frame is also

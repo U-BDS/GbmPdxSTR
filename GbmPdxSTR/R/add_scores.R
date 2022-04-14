@@ -1,6 +1,3 @@
-#' @include tanabe.R masters.R
-NULL
-
 #' add_scores
 #' Adds matching scores between query and reference to the reference data containing all markers
 #' @param ref_alleles_data processed reference data - should be the output of `add_share_ref_alleles_data()`

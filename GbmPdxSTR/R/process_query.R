@@ -1,6 +1,3 @@
-#' @include add_query_alleles_data.R add_share_ref_alleles_data.R add_scores.R
-NULL
-
 #' process_query
 #' Process single-query entries to produce a summarized data.frame containing STR matching scores
 #' @param query query data

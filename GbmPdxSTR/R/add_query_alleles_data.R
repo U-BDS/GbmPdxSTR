@@ -1,6 +1,3 @@
-#' @include summarize_allele_stats.R
-NULL
-
 #' add_query_alleles_data
 #' Adds the total number of alleles for the query and return a data.frame in the format
 #' which will be viewed in the app - e.g.: allele values being comma separated
