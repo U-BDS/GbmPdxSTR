@@ -10,7 +10,10 @@ NULL
 #' needed by the app
 #' @export
 #'
-#' @examples add_query_alleles_data(query)
+#' @examples
+#' \dontrun{
+#' add_query_alleles_data(query)
+#' }
 add_query_alleles_data <- function(query) {
 
   # compute total number of alleles for query

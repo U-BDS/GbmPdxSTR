@@ -8,7 +8,10 @@
 #' @return A data frame of summarized allelic information
 #' @export
 #'
-#' @examples summarize_allele_stats(shared_alleles_list, new_column_name="shared_alleles")
+#' @examples
+#' \dontrun{
+#' summarize_allele_stats(shared_alleles_list, new_column_name="shared_alleles")
+#' }
 summarize_allele_stats <- function(allele_input, new_column_name, perform_binding = TRUE) {
 
   # instead of bind rows can also do.call(rbind,shared_alleles_list),

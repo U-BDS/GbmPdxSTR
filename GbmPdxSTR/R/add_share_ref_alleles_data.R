@@ -13,7 +13,10 @@ NULL
 #' and total alleles per marker in the data.frame format needed by the app
 #' @export
 #'
-#' @examples add_share_ref_alleles_data(query)
+#' @examples
+#' \dontrun{
+#' add_share_ref_alleles_data(query)
+#' }
 add_share_ref_alleles_data <- function(query) {
   shared_alleles_list <- list()
   total_alleles_ref_list <- list()
