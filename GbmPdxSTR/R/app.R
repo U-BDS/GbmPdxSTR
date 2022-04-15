@@ -3,6 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(shiny)
 library(shinyjs)
+library(shinyhelper)
 library(markdown)
 library(bslib)
 library(DT)
@@ -10,10 +11,19 @@ library(tibble)
 
 # global non-interactive functions, info and datasets to be shared among all
 # connections per worker/process (https://shiny.rstudio.com/articles/scoping.html)
+#TODO: change from using source to load_all()
 source("./home_description.R", local = TRUE)
-#source("./helper_functions.R", local = TRUE)
+source("./generics.R", local = TRUE)
+source("./summarize_allele_stats.R", local = TRUE)
+source("./add_query_alleles_data.R", local = TRUE)
+source("./add_share_ref_alleles_data.R", local = TRUE)
+source("./tanabe.R", local = TRUE)
+source("./masters.R", local = TRUE)
+source("./add_scores.R", local = TRUE)
+source("./process_query.R", local = TRUE)
 source("./app_modules.R", local = TRUE)
 
+#TODO: consider increasing max-width
 main_panel_style <- "overflow-y:scroll; max-height: 1500px; max-width: 1500px; border-top: solid; border-bottom: solid; border-color: #e8e8e8"
 
 # load reference
@@ -56,7 +66,7 @@ server <- function(input, output, session) {
 
   myModuleServer(
     id = "str_gbm",
-    dataset = gbmpdx_ref
+    dataset = gbmpdx_ref #TODO unneeded argument, here but reminder to add this to make it more modular (will need to modify functions)
   )
 }
 
