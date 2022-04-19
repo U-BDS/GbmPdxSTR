@@ -5,109 +5,143 @@ options(spinner.type = 1, spinner.color = "#232a30", spinner.size = 2)
 
 #-------------------------------------------UI-----------------------------------------------------
 
+# margin-left: auto; margin-right: auto; for centering all textInputs
 myModuleUI <- function(id) {
   ns <- NS(id)
 
-  sidebarLayout(
-    sidebarPanel(
-      width = 3,
-      textInput(
-        inputId = ns("amel"),
-        label = "Amel",
-        # placeholder = "X",
+  fluidPage(
+    fluidRow(style = "background-color:#f5f5f5; max-width: 800px; margin-left:
+             auto; margin-right: auto; border-style: solid; border-color: #e8e8e8",
+      column(width = 4, align="center",
+        textInput(
+          inputId = ns("amel"),
+          label = "Amel",
+          width = "150px"
+          # placeholder = "X",
+        ),
+        textInput(
+          inputId = ns("csf1po"),
+          label = "CSF1PO",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d10s1248"),
+          label = "D10S1248",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d12s391"),
+          label = "D12S391",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d13s317"),
+          label = "D13s317",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d16s539"),
+          label = "D16s539",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d18s51"),
+          label = "D18s51",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d19s433"),
+          label = "D19S433",
+          width = "150px"
+        )
       ),
-      textInput(
-        inputId = ns("csf1po"),
-        label = "CSF1PO",
+      column(width = 4, align="center",
+        textInput(
+          inputId = ns("d1s1656"),
+          label = "D1S1656",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d21s11"),
+          label = "D21s11",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d22s1045"),
+          label = "D22S1045",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d2s1338"),
+          label = "D2S1338",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d2s441"),
+          label = "D2S441",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d3s1358"),
+          label = "D3s1358",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d5s818"),
+          label = "D5s818",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("d7s820"),
+          label = "D7s820",
+          width = "150px"
+        )
       ),
-      textInput(
-        inputId = ns("d10s1248"),
-        label = "D10S1248",
+      column(width = 4, align="center",
+        textInput(
+          inputId = ns("d8s1179"),
+          label = "D8s1179",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("dys391"),
+          label = "DYS391",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("fga"),
+          label = "FGA",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("penta.d"),
+          label = "Penta.D",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("penta.e"),
+          label = "Penta.E",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("th01"),
+          label = "TH01",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("tpox"),
+          label = "TPOX",
+          width = "150px"
+        ),
+        textInput(
+          inputId = ns("vwa"),
+          label = "vWA",
+          width = "150px"
+        ),
       ),
-      textInput(
-        inputId = ns("d12s391"),
-        label = "D12S391",
-      ),
-      textInput(
-        inputId = ns("d13s317"),
-        label = "D13s317",
-      ),
-      textInput(
-        inputId = ns("d16s539"),
-        label = "D16s539",
-      ),
-      textInput(
-        inputId = ns("d18s51"),
-        label = "D18s51",
-      ),
-      textInput(
-        inputId = ns("d19s433"),
-        label = "D19S433",
-      ),
-      textInput(
-        inputId = ns("d1s1656"),
-        label = "D1S1656",
-      ),
-      textInput(
-        inputId = ns("d21s11"),
-        label = "D21s11",
-      ),
-      textInput(
-        inputId = ns("d22s1045"),
-        label = "D22S1045",
-      ),
-      textInput(
-        inputId = ns("d2s1338"),
-        label = "D2S1338",
-      ),
-      textInput(
-        inputId = ns("d2s441"),
-        label = "D2S441",
-      ),
-      textInput(
-        inputId = ns("d3s1358"),
-        label = "D3s1358",
-      ),
-      textInput(
-        inputId = ns("d5s818"),
-        label = "D5s818",
-      ),
-      textInput(
-        inputId = ns("d7s820"),
-        label = "D7s820",
-      ),
-      textInput(
-        inputId = ns("d8s1179"),
-        label = "D8s1179",
-      ),
-      textInput(
-        inputId = ns("dys391"),
-        label = "DYS391",
-      ),
-      textInput(
-        inputId = ns("fga"),
-        label = "FGA",
-      ),
-      textInput(
-        inputId = ns("penta.d"),
-        label = "Penta.D",
-      ),
-      textInput(
-        inputId = ns("penta.e"),
-        label = "Penta.E",
-      ),
-      textInput(
-        inputId = ns("th01"),
-        label = "TH01",
-      ),
-      textInput(
-        inputId = ns("tpox"),
-        label = "TPOX",
-      ),
-      textInput(
-        inputId = ns("vwa"),
-        label = "vWA",
-      ),
+    ),
+    br(),
+    column(width = 6,
       actionButton(
         inputId = ns("go"),
         label = "Search",
@@ -115,8 +149,9 @@ myModuleUI <- function(id) {
         style = "color: #ededed; background-color: #232a30"
       ),
     ),
-    mainPanel(
-      width = 9, style = main_panel_style,
+    br(),
+    verticalLayout(
+      #width = 11, style = main_panel_style,
       DT::DTOutput(ns("filtered_data")) # %>%
       #   shinycssloaders::withSpinner(),
       # ns = ns
@@ -187,6 +222,8 @@ myModuleServer <- function(id, dataset) {
           )
         })
 
+        #browser()
+
         # input_data <-c(
         #     input$amel,
         #     input$csf1po,
@@ -214,7 +251,10 @@ myModuleServer <- function(id, dataset) {
         #     input$vwa)
 
         # create query d.f (order matches marker input)
-
+        # message(update_query())
+        # message(input)
+        # message(str(input))
+        # message(names(input))
         #user_df <- data.frame(markers_ref, input_data)
         user_df <- data.frame(markers_ref, update_query())
         user_df <- as.data.frame(t(user_df))
