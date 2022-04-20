@@ -34,5 +34,12 @@ process_query <- function(query, ...) {
     matching_scores_to_ref
   )
 
+  # moving allele numbers/score etc.
+  single_query_output <- dplyr::relocate(
+    single_query_output,
+    Score, shared_alleles, total_alleles,
+    .after = GBM
+  )
+
   return(single_query_output)
 }
