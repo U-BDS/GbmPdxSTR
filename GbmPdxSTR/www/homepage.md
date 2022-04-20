@@ -1,7 +1,7 @@
 # GBM PDX STR Similarity Search Tool
 ___
 
-This web tool provides you with the ability to search for Short Tandem Repeat (STR) similarity between your sample (query) to the glioblastoma (GBM) patient-derived xenograft (PDX) tumors present at UAB. This tool is inspired by the [Cellosaurus CLASTR search tool](https://web.expasy.org/cellosaurus-str-search/).
+This web tool provides you with the ability to search for Short Tandem Repeat (STR) similarity between your sample (query) to the glioblastoma (GBM) patient-derived xenograft (PDX) tumors present at UAB. This tool is inspired by the [Cellosaurus CLASTR search tool](https://web.expasy.org/cellosaurus-str-search/). Additional information about this resource can be found at <https://doi.org/10.1002/ijc.32639>.
 
 ### Purpose
 
@@ -56,7 +56,7 @@ The reference set of GBM PDX tumors include the following:
 
 `J` refers to Dr. Jann Sarkaria, who provided the Mayo Clinic tumors.
 
-`X` refers the sample is a xenograph.
+`X` indicates the sample is a xenograph.
 
 ### Contact information
 
