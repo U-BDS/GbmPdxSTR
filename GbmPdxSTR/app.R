@@ -40,8 +40,7 @@ markers_ref <- colnames(gbmpdx_ref)
 
 #----------------------- app -------------------------------
 ui <- function() {
-  bootstrapPage(
-    "",
+  bootstrapPage("",
     useShinyjs(),
     theme = bs_theme(bootswatch = "flatly"),
     navbarPage(
@@ -51,11 +50,13 @@ ui <- function() {
       tabPanel(
         title = "STR Search",
         myModuleUI(id = "str_gbm")
-      ),
+      )
     ),
-    tags$head(tags$style(
-      HTML(".shiny-output-error-validation {
-                color: black;}")
+    tags$head(
+      tags$style(
+        HTML(".shiny-output-error-validation {
+                color: black;
+                                }")
       )
     )
   )
