@@ -158,7 +158,10 @@ myModuleUI <- function(id) {
                       choices = c("Tanabe" = "tanabe",
                                   "Masters (vs. query)" = "masters_query",
                                   "Masters (vs. reference)" = "masters_reference"),
-                      width = "200px"
+                      width = "200px") %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "scoring_info"
                     ),
                     fileInput(
                       inputId = ns("upload"),

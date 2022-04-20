@@ -62,7 +62,7 @@ ui <- function() {
 
 # Reminder: objects inside server function are instantiated per session...
 server <- function(input, output, session) {
-  shinyhelper::observe_helpers(help_dir = "helpfiles", withMathJax = FALSE)
+  shinyhelper::observe_helpers(help_dir = "../helpfiles", withMathJax = TRUE)
 
   myModuleServer(
     id = "str_gbm",
