@@ -16,127 +16,150 @@ myModuleUI <- function(id) {
         textInput(
           inputId = ns("amel"),
           label = "Amel",
-          width = "150px"
-          # placeholder = "X",
+          width = "150px",
+          placeholder = "X"
         ),
         textInput(
           inputId = ns("csf1po"),
           label = "CSF1PO",
-          width = "150px"
+          width = "150px",
+          placeholder = "11,13"
         ),
         textInput(
           inputId = ns("d10s1248"),
           label = "D10S1248",
-          width = "150px"
+          width = "150px",
+          placeholder = "13"
         ),
         textInput(
           inputId = ns("d12s391"),
           label = "D12S391",
-          width = "150px"
+          width = "150px",
+          placeholder = "18"
         ),
         textInput(
           inputId = ns("d13s317"),
           label = "D13s317",
-          width = "150px"
+          width = "150px",
+          placeholder = "10,12"
         ),
         textInput(
           inputId = ns("d16s539"),
           label = "D16s539",
-          width = "150px"
+          width = "150px",
+          placeholder = "11,13"
         ),
         textInput(
           inputId = ns("d18s51"),
           label = "D18s51",
-          width = "150px"
+          width = "150px",
+          placeholder = "16,18"
         ),
         textInput(
           inputId = ns("d19s433"),
           label = "D19S433",
-          width = "150px"
+          width = "150px",
+          placeholder = "14"
         )
       ),
       column(width = 4, align="center",
         textInput(
           inputId = ns("d1s1656"),
           label = "D1S1656",
-          width = "150px"
+          width = "150px",
+          placeholder = "11,16"
         ),
         textInput(
           inputId = ns("d21s11"),
           label = "D21s11",
-          width = "150px"
+          width = "150px",
+          placeholder = "28,31"
         ),
         textInput(
           inputId = ns("d22s1045"),
           label = "D22S1045",
-          width = "150px"
+          width = "150px",
+          placeholder = "16"
         ),
         textInput(
           inputId = ns("d2s1338"),
           label = "D2S1338",
-          width = "150px"
+          width = "150px",
+          placeholder = "17,25"
         ),
         textInput(
           inputId = ns("d2s441"),
           label = "D2S441",
-          width = "150px"
+          width = "150px",
+          placeholder = "11"
         ),
         textInput(
           inputId = ns("d3s1358"),
           label = "D3s1358",
-          width = "150px"
+          width = "150px",
+          placeholder = "18"
         ),
         textInput(
           inputId = ns("d5s818"),
           label = "D5s818",
-          width = "150px"
+          width = "150px",
+          placeholder = "12"
         ),
         textInput(
           inputId = ns("d7s820"),
           label = "D7s820",
-          width = "150px"
+          width = "150px",
+          placeholder = "10"
         )
       ),
       column(width = 4, align="center",
         textInput(
           inputId = ns("d8s1179"),
           label = "D8s1179",
-          width = "150px"
+          width = "150px",
+          placeholder = "13,14"
         ),
         textInput(
           inputId = ns("dys391"),
           label = "DYS391",
-          width = "150px"
+          width = "150px",
+          placeholder = "11" #TODO add NA placeholder once  this is enabled
         ),
         textInput(
           inputId = ns("fga"),
           label = "FGA",
-          width = "150px"
+          width = "150px",
+          placeholder = "20,21"
         ),
         textInput(
           inputId = ns("penta.d"),
           label = "Penta.D",
-          width = "150px"
+          width = "150px",
+          placeholder = "11,13"
         ),
         textInput(
           inputId = ns("penta.e"),
           label = "Penta.E",
-          width = "150px"
+          width = "150px",
+          placeholder = "7"
         ),
         textInput(
           inputId = ns("th01"),
           label = "TH01",
-          width = "150px"
+          width = "150px",
+          placeholder = "6,9.3"
         ),
         textInput(
           inputId = ns("tpox"),
           label = "TPOX",
-          width = "150px"
+          width = "150px",
+          placeholder = "8,11"
         ),
         textInput(
           inputId = ns("vwa"),
           label = "vWA",
-          width = "150px"
+          width = "150px",
+          placeholder = "15,16"
         ),
       ),
     ),
