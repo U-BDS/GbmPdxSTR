@@ -18,9 +18,11 @@ add_share_ref_alleles_data <- function(query) {
   shared_alleles_list <- list()
   total_alleles_ref_list <- list()
 
+  message("processing query vs reference")
+
   # computing information for shared alleles and all references
   for (gbm in rownames(gbmpdx_ref)) {
-    message(paste0("processing query vs reference ", gbm)) ## TODO: remove this, just testing
+    #message(paste0("processing query vs reference ", gbm))
 
     tmp_marker_data_share <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
     tmp_marker_data_ref <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)

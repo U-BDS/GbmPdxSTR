@@ -317,7 +317,7 @@ myModuleServer <- function(id, dataset) {
         #---------------------#TODO: make function for this pre-processing -------------------
         # process upload to add it to expected format (wider and comma-separated per allele)
 
-        user_query_upload <- read.csv(file$datapath, header = TRUE)
+        user_query_upload <- read.csv(file$datapath, header = TRUE, colClasses = "character")
 
         # remove any homozygous values if present
         user_query_upload <- as.data.frame(t(apply(user_query_upload, 1, function(x) replace(x, duplicated(x), NA))))
@@ -344,26 +344,17 @@ myModuleServer <- function(id, dataset) {
 
         #------------------------------------end pre-processing ----------------------------
 
-        # DT::datatable(user_query_upload,
-        #   rownames = FALSE,
-        #   options = list(
-        #     pageLength = 10,
-        #     scrollX = TRUE
-        #   ),
-        #   escape = FALSE
-        # )
-
-        # DT::datatable(process_query(query = as.data.frame(user_query_upload),
-        #                             #scoring_algorithm = sub("_.*", "", input$score),
-        #                             #masters_denominator = sub(".*_", "", input$score)
-        #                             ),
-        #               rownames = FALSE,
-        #               options = list(
-        #                 pageLength = 10,
-        #                 scrollX = TRUE
-        #               ),
-        #               escape = FALSE
-        # )
+        DT::datatable(process_query(query = as.data.frame(user_query_upload),
+                                    scoring_algorithm = sub("_.*", "", input$score),
+                                    masters_denominator = sub(".*_", "", input$score)
+                                    ),
+                      rownames = FALSE,
+                      options = list(
+                        pageLength = 10,
+                        scrollX = TRUE
+                      ),
+                      escape = FALSE
+        )
       })
 
       observe({
