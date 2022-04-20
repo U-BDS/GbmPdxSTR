@@ -12,23 +12,23 @@ library(tibble)
 # global non-interactive functions, info and datasets to be shared among all
 # connections per worker/process (https://shiny.rstudio.com/articles/scoping.html)
 #TODO: change from using source to load_all()
-source("./home_description.R", local = TRUE)
-source("./generics.R", local = TRUE)
-source("./summarize_allele_stats.R", local = TRUE)
-source("./add_query_alleles_data.R", local = TRUE)
-source("./add_share_ref_alleles_data.R", local = TRUE)
-source("./tanabe.R", local = TRUE)
-source("./masters.R", local = TRUE)
-source("./add_scores.R", local = TRUE)
-source("./process_query.R", local = TRUE)
-source("./app_modules.R", local = TRUE)
+source("./R/home_description.R", local = TRUE)
+source("./R/generics.R", local = TRUE)
+source("./R/summarize_allele_stats.R", local = TRUE)
+source("./R/add_query_alleles_data.R", local = TRUE)
+source("./R/add_share_ref_alleles_data.R", local = TRUE)
+source("./R/tanabe.R", local = TRUE)
+source("./R/masters.R", local = TRUE)
+source("./R/add_scores.R", local = TRUE)
+source("./R/process_query.R", local = TRUE)
+source("./R/app_modules.R", local = TRUE)
 
 #TODO: consider increasing max-width
 main_panel_style <- "overflow-y:scroll; max-height: 1500px; max-width: 1500px; border-top: solid; border-bottom: solid; border-color: #e8e8e8"
 
 # load reference
 gbmpdx_ref <- read.csv(
-  "../data/STR_GBM_PDX_Standards_wide.csv",
+  "./data/STR_GBM_PDX_Standards_wide.csv",
   stringsAsFactors = FALSE,
   colClasses = "character",
   row.names = 1
@@ -56,11 +56,13 @@ ui <- function() {
     tags$head(tags$style(
       HTML(".shiny-output-error-validation {
                 color: black;}")
-    ))
+      )
+    )
   )
 }
 
-# Reminder: objects inside server function are instantiated per session...
+
+# # Reminder: objects inside server function are instantiated per session...
 server <- function(input, output, session) {
   shinyhelper::observe_helpers(help_dir = "../helpfiles", withMathJax = TRUE)
 
