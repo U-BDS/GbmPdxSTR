@@ -227,8 +227,6 @@ myModuleUI <- function(id) {
 
 #-------------------------------------------SERVER-----------------------------------------------------
 
-## TODO: move score or other relevant data to earlier columns in table below
-# for easier visibility
 ## TODO: query below should be concat of all options
 ## TODO: provide option to add NA (but NA read as character so convert to NA) and/or keep as it (leave blank)
 ## ^ use dplyr::na_if ; e.g. na_if("NA, "NA") ; https://dplyr.tidyverse.org/reference/na_if.html
@@ -340,35 +338,8 @@ myModuleServer <- function(id, dataset) {
         req(file)
         validate(need(ext == "csv", "Please upload a csv file"))
 
-        #---------------------#TODO: make function for this pre-processing -------------------
-        # process upload to add it to expected format (wider and comma-separated per allele)
-
-        user_query_upload <- read.csv(file$datapath, header = TRUE, colClasses = "character")
-
-        # remove any homozygous values if present
-        user_query_upload <- as.data.frame(t(apply(user_query_upload, 1, function(x) replace(x, duplicated(x), NA))))
-
-        # ensuring all still character...
-
-        user_query_upload <- mutate_all(user_query_upload, as.character)
-
-        # unite
-
-        user_query_upload <- tidyr::unite(user_query_upload, STR_data, -GBM, -Marker, remove = TRUE, na.rm = TRUE, sep = ",")
-
-        #------ change layout to wide -----
-        user_query_upload <- tidyr::pivot_wider(user_query_upload, names_from = Marker, values_from = STR_data)
-
-        # now re-add NAs for any STRs where there is no data
-        user_query_upload[user_query_upload==""] <- NA
-
-        user_query_upload <- as.data.frame(user_query_upload)
-
-        # make first column, row name
-        rownames(user_query_upload) <- user_query_upload[,1]
-        user_query_upload <- user_query_upload[,-1]
-
-        #------------------------------------end pre-processing ----------------------------
+        #pre-process upload
+        user_query_upload <- process_upload(file$datapath)
 
         DT::datatable(process_query(query = as.data.frame(user_query_upload),
                                     scoring_algorithm = sub("_.*", "", input$score),
