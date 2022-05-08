@@ -21,6 +21,7 @@ source("./R/tanabe.R", local = TRUE)
 source("./R/masters.R", local = TRUE)
 source("./R/add_scores.R", local = TRUE)
 source("./R/process_query.R", local = TRUE)
+source("./R/validate_marker_query.R", local = TRUE)
 source("./R/app_modules.R", local = TRUE)
 
 #TODO: consider increasing max-width
