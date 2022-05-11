@@ -318,7 +318,7 @@ myModuleServer <- function(id, dataset) {
         user_df <- add_header(user_df)
 
         # query inputs contain validation of each user-entered value by `validate_marker_query`
-        DT::datatable(process_query(query = validate_marker_query(user_df),
+        DT::datatable(process_query(query = validate_marker_query(user_df, input_type = "manual_entry"),
                                     scoring_algorithm = sub("_.*", "", input$score),
                                     masters_denominator = sub(".*_", "", input$score)),
                       rownames = FALSE,
@@ -340,7 +340,7 @@ myModuleServer <- function(id, dataset) {
         validate(need(ext == "csv", "Please upload a csv file"))
 
         #pre-process upload and validate user-entered inputs for each marker
-        user_query_upload <- validate_marker_query(process_upload(file$datapath))
+        user_query_upload <- validate_marker_query(process_upload(file$datapath), input_type = "csv")
 
         DT::datatable(process_query(query = as.data.frame(user_query_upload),
                                     scoring_algorithm = sub("_.*", "", input$score),
