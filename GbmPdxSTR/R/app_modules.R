@@ -127,7 +127,7 @@ myModuleUI <- function(id) {
           inputId = ns("dys391"),
           label = "DYS391",
           width = "150px",
-          placeholder = "11" #TODO add NA placeholder once  this is enabled
+          placeholder = "NA"
         ),
         textInput(
           inputId = ns("fga"),
@@ -232,8 +232,6 @@ myModuleUI <- function(id) {
 #-------------------------------------------SERVER-----------------------------------------------------
 
 ## TODO: query below should be concat of all options
-## TODO: provide option to add NA (but NA read as character so convert to NA) and/or keep as it (leave blank)
-## ^ use dplyr::na_if ; e.g. na_if("NA, "NA") ; https://dplyr.tidyverse.org/reference/na_if.html
 
 myModuleServer <- function(id, dataset) {
   moduleServer(

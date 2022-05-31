@@ -20,8 +20,9 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
     across(where(is.character), stringr::str_remove_all, pattern = stringr::fixed(" "))
   )
 
-  # ensure any empty entries are NAs
+  # ensure any empty entries or "NA" (strings) are NAs
   query <- dplyr::na_if(query, "")
+  query <- dplyr::na_if(query, "NA")
 
   # ensure that for Amel, expected inputs are valid
   if (!is.na(query$Amel)) {
@@ -29,7 +30,7 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
 
     validate(
       need(all(unlist(strsplit(query$Amel, ",")) == "X") | all(unlist(strsplit(query$Amel, ",")) == "Y") | all(sort(unique(unlist(strsplit(query$Amel, ",")))) == c("X", "Y")),
-        message = paste0("Amel marker input ", query$Amel, " does not match expected inputs (X or X,Y)")
+        message = paste0("Amel marker input ", query$Amel, " does not match expected inputs (X or X,Y). Leave blank of type NA for no data in this marker")
       )
     )
   }
@@ -39,7 +40,7 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
     if (!is.na(col_input)) {
       validate(
         need(!any(!stringr::str_detect(unlist(strsplit(col_input, ",")), "^[0-9]+[.]?[0-9]*$")),
-          message = paste0("Input ", col_input, " should be numeric values (10, or 10,11 etc.)")
+          message = paste0("Input ", col_input, " should be numeric values (10, or 10,11 etc.). Leave blank of type NA for no data in this marker")
         )
       )
     }
