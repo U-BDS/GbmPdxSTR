@@ -190,6 +190,12 @@ myModuleUI <- function(id) {
                                           type = "markdown",
                                           content = "scoring_info"
                     ),
+                    checkboxInput(
+                      inputId = ns("count_amel"),
+                      label = "Include Amelogenin in score computation",
+                      value = TRUE,
+                      width = "300px"
+                    ),
                     fileInput(
                       inputId = ns("upload"),
                       label = "Optionally, upload CSV file of single-query data",
@@ -321,6 +327,7 @@ myModuleServer <- function(id, dataset) {
 
         # query inputs contain validation of each user-entered value by `validate_marker_query`
         DT::datatable(process_query(query = validate_marker_query(user_df, input_type = "manual_entry"),
+                                    include_amel = input$count_amel,
                                     scoring_algorithm = sub("_.*", "", input$score),
                                     masters_denominator = sub(".*_", "", input$score)),
                       rownames = FALSE,
@@ -345,6 +352,7 @@ myModuleServer <- function(id, dataset) {
         user_query_upload <- validate_marker_query(process_upload(file$datapath), input_type = "csv")
 
         DT::datatable(process_query(query = as.data.frame(user_query_upload),
+                                    include_amel = input$count_amel,
                                     scoring_algorithm = sub("_.*", "", input$score),
                                     masters_denominator = sub(".*_", "", input$score)
                                     ),

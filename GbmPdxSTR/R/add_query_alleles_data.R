@@ -11,7 +11,7 @@
 #' \dontrun{
 #' add_query_alleles_data(query)
 #' }
-add_query_alleles_data <- function(query) {
+add_query_alleles_data <- function(query, include_amel = TRUE) {
 
   # compute total number of alleles for query
   total_alleles_query <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
@@ -26,6 +26,10 @@ add_query_alleles_data <- function(query) {
     total_alleles_query[, marker] <- query_total
 
     total_alleles_query$GBM <- rownames(query)
+  }
+
+  if (include_amel == FALSE) {
+    total_alleles_query <- select(total_alleles_query, -Amel)
   }
 
   # summarizing the data

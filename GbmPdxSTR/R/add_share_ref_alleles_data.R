@@ -14,7 +14,7 @@
 #' \dontrun{
 #' add_share_ref_alleles_data(query)
 #' }
-add_share_ref_alleles_data <- function(query) {
+add_share_ref_alleles_data <- function(query, include_amel = TRUE) {
   shared_alleles_list <- list()
   total_alleles_ref_list <- list()
 
@@ -57,6 +57,12 @@ add_share_ref_alleles_data <- function(query) {
 
     shared_alleles_list[[gbm]] <- tmp_marker_data_share # add to list of all markers
     total_alleles_ref_list[[gbm]] <- tmp_marker_data_ref
+  }
+
+  if (include_amel == FALSE) {
+    shared_alleles_list <- lapply(X = shared_alleles_list, FUN = function(x) {select(x, -Amel)})
+
+    total_alleles_ref_list <- lapply(X = total_alleles_ref_list, FUN = function(x) {select(x, -Amel)})
   }
 
   # summarizing the data
