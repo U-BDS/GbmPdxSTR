@@ -13,7 +13,7 @@ process_upload <- function(input_path) {
   # process upload to add it to expected format (wider and comma-separated per allele)
   user_query_upload <- read.csv(input_path, header = TRUE, colClasses = "character")
 
-  # remove any homozygous values if present
+  # remove any homozygous values if present (to be counted as one allele)
   user_query_upload <- as.data.frame(t(apply(user_query_upload, 1, function(x) replace(x, duplicated(x), NA))))
 
   user_query_upload %>%

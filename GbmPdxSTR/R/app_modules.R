@@ -118,6 +118,10 @@ myModuleUI <- function(id) {
           label = "D8s1179",
           width = "150px",
           placeholder = "13,14"
+        ) %>%
+          shinyhelper::helper(icon = "info-circle",
+                              type = "markdown",
+                              content = "marker_entry_info"
         ),
         textInput(
           inputId = ns("dys391"),

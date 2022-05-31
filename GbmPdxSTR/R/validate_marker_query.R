@@ -1,3 +1,15 @@
+#' validate_marker_query
+#' This function validates STR data entries and converts homozygous alleles to be counted as one for manual data entries
+#' @param query query data
+#' @param input_type the data input type - either `manual_entry` for data input in the app or `csv` for file uploads
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' validate_marker_query(query, input_type = "manual_entry")
+#' }
 validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) {
   # evaluate input type:
   input_type <- match.arg(input_type)
@@ -33,7 +45,7 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
     }
   })
 
-  # for all markers remove homozygous (already done in upload csv but not in user-entered data)
+  # for all markers count homozygous as one (already done in upload csv but not in user-entered data)
   if (input_type == "manual_entry") {
     for (i in 1:ncol(query)) {
       if (!is.na(query[, i])) {
@@ -55,6 +67,3 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
 
   return(query)
 }
-
-# TODO: add function description
-# TODO: add helper message about inputs up top and mention homozygous alleles are removed
