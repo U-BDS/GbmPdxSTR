@@ -9,7 +9,7 @@ Instead of manually entering your STR data in the app directly, users may also u
 * A blank template of the file can be downloaded from the option in the app which states __`Download template csv file`__
 * The marker `Amel` also contains the following aliases which may be used instead (will be auto-converted to `Amel`): `Amelogenin`, `AM`, `Aml`, `AMEL`
 * Similarly, the marker `Penta.D` has the alias `Penta D` and `Penta.E` has the alias `Penta E`
-* A sample completed csv file may look like the following example:
+* A properly formatted table example is:
 
 
 <style>

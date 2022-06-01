@@ -13,6 +13,21 @@ process_upload <- function(input_path) {
   # process upload to add it to expected format (wider and comma-separated per allele)
   user_query_upload <- read.csv(input_path, header = TRUE, colClasses = "character")
 
+  # check that expected columns are present
+
+  validate(
+    need(ncol(user_query_upload) == 6,
+         message = paste0("Unexpected number of columns found! Ensure there are 6 columns named GBM, Marker, Allele_1, Allele_2, Allele_3, Allele_4"))
+  )
+
+  # col order shouldn't affect app behavior, thus sorting
+  setdiff_out <- setdiff(sort(colnames(user_query_upload)), sort(c("GBM","Marker","Allele_1","Allele_2","Allele_3","Allele_4")))
+  validate(
+    need(length(setdiff_out) == 0,
+         message = paste0("Unexpected column names found! The column(s) named ", setdiff_out,
+                          " differ from one or more of the following GBM, Marker, Allele_1, Allele_2, Allele_3, Allele_4"))
+  )
+
   # remove any homozygous values if present (to be counted as one allele)
   user_query_upload <- as.data.frame(t(apply(user_query_upload, 1, function(x) replace(x, duplicated(x), NA))))
 
