@@ -72,6 +72,15 @@ server <- function(input, output, session) {
     id = "str_gbm",
     dataset = gbmpdx_ref #TODO unneeded argument, here but reminder to add this to make it more modular (will need to modify functions)
   )
+
+  # sample csv download
+  output$download_template <- downloadHandler(
+    filename = "single_query_blank_template.csv",
+
+    content = function(file) {
+      write.csv(read.csv("./data/single_query_blank_template.csv"), file, row.names = FALSE)
+    }
+  )
 }
 
 shinyApp(ui = ui, server = server)

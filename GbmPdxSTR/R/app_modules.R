@@ -202,7 +202,12 @@ myModuleUI <- function(id) {
                       multiple = FALSE, #TODO: will enable this once I move on to multi-query entries phase
                       accept = ".csv", #TODO: headers must be present in file. Need to add file validator
                       width = "400px"
-                    ),
+                    ) %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "csv_file_info"
+                                          ),
+                    downloadButton("download_template", "Download template csv file"),
              ),
              column(width = 6,
                     br(),
