@@ -331,17 +331,27 @@ myModuleServer <- function(id, dataset) {
         user_df <- add_header(user_df)
 
         # query inputs contain validation of each user-entered value by `validate_marker_query`
-        DT::datatable(process_query(query = validate_marker_query(user_df, input_type = "manual_entry"),
-                                    include_amel = input$count_amel,
-                                    scoring_algorithm = sub("_.*", "", input$score),
-                                    masters_denominator = sub(".*_", "", input$score)),
+        user_df <- process_query(query = validate_marker_query(user_df, input_type = "manual_entry"),
+                                 include_amel = input$count_amel,
+                                 scoring_algorithm = sub("_.*", "", input$score),
+                                 masters_denominator = sub(".*_", "", input$score))
+
+        # output as DT::datatable
+        DT::datatable(user_df,
                       rownames = FALSE,
                       options = list(
                         pageLength = 10,
                         scrollX = TRUE
                       ),
-                      escape = FALSE
-        ) # to not escape HTML code in table
+                      escape = FALSE # to not escape HTML code in table
+        ) %>%
+          formatStyle(
+            "Score",
+            background = styleColorBar(user_df$Score, "#dde0ed"),
+            backgroundSize = "100% 90%",
+            backgroundRepeat = "no-repeat",
+            backgroundPosition = "center"
+          )
 
       })
 
@@ -355,19 +365,27 @@ myModuleServer <- function(id, dataset) {
 
         #pre-process upload and validate user-entered inputs for each marker
         user_query_upload <- validate_marker_query(process_upload(file$datapath), input_type = "csv")
+        user_query_upload <- process_query(query = as.data.frame(user_query_upload),
+                                           include_amel = input$count_amel,
+                                           scoring_algorithm = sub("_.*", "", input$score),
+                                           masters_denominator = sub(".*_", "", input$score))
 
-        DT::datatable(process_query(query = as.data.frame(user_query_upload),
-                                    include_amel = input$count_amel,
-                                    scoring_algorithm = sub("_.*", "", input$score),
-                                    masters_denominator = sub(".*_", "", input$score)
-                                    ),
+        DT::datatable(user_query_upload,
                       rownames = FALSE,
                       options = list(
                         pageLength = 10,
                         scrollX = TRUE
                       ),
                       escape = FALSE
-        )
+        ) %>%
+          formatStyle(
+            "Score",
+            background = styleColorBar(user_query_upload$Score, "#dde0ed"),
+            backgroundSize = "100% 90%",
+            backgroundRepeat = "no-repeat",
+            backgroundPosition = "center"
+          )
+
       })
 
       observe({
