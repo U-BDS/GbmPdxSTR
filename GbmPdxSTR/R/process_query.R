@@ -37,7 +37,7 @@ process_query <- function(query, include_amel = TRUE, ...) {
   # moving allele numbers/score etc.
   single_query_output <- dplyr::relocate(
     single_query_output,
-    Score, shared_alleles, total_alleles,
+    Score, data_type, shared_alleles, total_alleles,
     .after = GBM
   )
 

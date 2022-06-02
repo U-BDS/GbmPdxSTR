@@ -48,5 +48,9 @@ add_query_alleles_data <- function(query, include_amel = TRUE) {
     type = "full"
   )
 
+  # adding data_type variable for use of `RowGroup` later on in DT
+
+  output_df$data_type <- "query"
+
   return(output_df)
 }

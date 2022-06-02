@@ -339,11 +339,12 @@ myModuleServer <- function(id, dataset) {
         # output as DT::datatable
         DT::datatable(user_df,
                       rownames = FALSE,
+                      extensions = "RowGroup",
                       options = list(
-                        pageLength = 10,
-                        scrollX = TRUE
-                      ),
-                      escape = FALSE # to not escape HTML code in table
+                        pageLength = 50,
+                        scrollX = TRUE,
+                        rowGroup = list(dataSrc = 2), # index here based is 0 based, not R based (index for `data_type` col)
+                        escape = TRUE),
         ) %>%
           formatStyle(
             "Score",
@@ -372,11 +373,12 @@ myModuleServer <- function(id, dataset) {
 
         DT::datatable(user_query_upload,
                       rownames = FALSE,
+                      extensions = "RowGroup",
                       options = list(
-                        pageLength = 10,
-                        scrollX = TRUE
-                      ),
-                      escape = FALSE
+                        pageLength = 50,
+                        scrollX = TRUE,
+                        rowGroup = list(dataSrc = 2),
+                        escape = TRUE),
         ) %>%
           formatStyle(
             "Score",
