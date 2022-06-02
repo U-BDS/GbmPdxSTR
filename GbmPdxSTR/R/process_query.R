@@ -3,7 +3,7 @@
 #' @param query query data
 #' @param ... params to be passed on to `add_scores` - typically linked to choice to scoring algorithm
 #'
-#' @return
+#' @return processed data frame containing STR markers from query and reference along with scores
 #' @export
 #'
 #' @examples

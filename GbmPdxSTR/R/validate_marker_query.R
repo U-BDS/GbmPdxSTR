@@ -3,7 +3,7 @@
 #' @param query query data
 #' @param input_type the data input type - either `manual_entry` for data input in the app or `csv` for file uploads
 #'
-#' @return
+#' @return the validated query
 #' @export
 #'
 #' @examples
