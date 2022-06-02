@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' add_header(user_df))
 #' }
 add_header <- function(df) {
@@ -26,7 +26,7 @@ add_header <- function(df) {
 #' @export
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' process_upload("./data/single_query_example.csv"))
 #' }
 process_upload <- function(input_path) {

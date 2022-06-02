@@ -200,7 +200,7 @@ myModuleUI <- function(id) {
                       inputId = ns("upload"),
                       label = "Optionally, upload CSV file of single-query data",
                       multiple = FALSE, #TODO: will enable this once I move on to multi-query entries phase
-                      accept = ".csv", #TODO: headers must be present in file. Need to add file validator
+                      accept = ".csv",
                       width = "400px"
                     ) %>%
                       shinyhelper::helper(icon = "info-circle",
