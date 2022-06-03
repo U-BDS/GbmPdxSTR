@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' save_multi_query_workbook(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
+#' summarize_multi_query(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
 #' }
 summarize_multi_query <- function(multi_query_list) {
 
