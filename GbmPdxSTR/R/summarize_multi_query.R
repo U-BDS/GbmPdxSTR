@@ -38,6 +38,9 @@ summarize_multi_query <- function(multi_query_list) {
   score_summary %>%
     tibble::column_to_rownames(var = "GBM") -> score_summary
 
+  # make it numeric to apply styleColorBar in DT across entire table
+  score_summary[] <- lapply(score_summary, function(x) as.numeric(as.character(x)))
+
   return(score_summary)
 
 }

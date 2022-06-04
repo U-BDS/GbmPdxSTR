@@ -207,7 +207,7 @@ myModuleUI <- function(id) {
                                           type = "markdown",
                                           content = "csv_file_info"
                                           ),
-                    downloadButton("download_template", "Download template csv file"),
+                    downloadButton(ns("download_template"), label = "Download template csv file"),
              ),
              column(width = 6,
                     br(),
@@ -235,6 +235,59 @@ myModuleUI <- function(id) {
     br(),
     verticalLayout(
       DT::DTOutput(ns("filtered_data_csv"))
+    )
+  )
+}
+
+########################################## MULTI-QUERY UI ############################################
+
+myModuleUI_multi_query <- function(id) {
+  ns <- NS(id)
+
+  fluidPage(
+    fluidRow(style = "background-color:#f5f5f5; max-width: 800px; margin-left:
+             auto; margin-right: auto; border-style: solid; border-color: #e8e8e8",
+             column(width = 6,
+                    br(),
+                    radioButtons(
+                      inputId = ns("score_multi"),
+                      label = "Scoring algorithm",
+                      choices = c("Tanabe" = "tanabe",
+                                  "Masters (vs. query)" = "masters_query",
+                                  "Masters (vs. reference)" = "masters_reference"),
+                      width = "200px") %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "scoring_info"
+                      ),
+                    checkboxInput(
+                      inputId = ns("count_amel_multi"),
+                      label = "Include Amelogenin in score computation",
+                      value = TRUE,
+                      width = "300px"
+                    ),
+             ),
+             column(width = 6,
+                    br(),
+                    fileInput(
+                      inputId = ns("upload_multi"),
+                      label = "Optionally, upload CSV file of multi-query data",
+                      multiple = FALSE,
+                      accept = ".csv",
+                      width = "400px"
+                    ) %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "csv_file_info" #TODO: change to reflect multi-query template
+                      ),
+                    #downloadButton("download_template_multi", "Download multi-query template csv file"), #TODO consider moving this somewhere else or removing template here?
+                    downloadButton(ns("download_processed_data"), label = "Download multi-query detailed results"),
+             ),
+    ),
+    br(),
+    br(),
+    verticalLayout(
+      DT::DTOutput(ns("score_summary_multi_query_csv"))
     )
   )
 }
@@ -348,8 +401,8 @@ myModuleServer <- function(id, dataset) {
         ) %>%
           formatStyle(
             "Score",
-            background = styleColorBar(user_df$Score, "#dde0ed"),
-            backgroundSize = "100% 90%",
+            background = styleColorBar(c(0,100), "#dde0ed"), # use expected range from 0-100 for consistancy across entire app
+            backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"
           )
@@ -358,14 +411,14 @@ myModuleServer <- function(id, dataset) {
 
       output$filtered_data_csv <- DT::renderDT({
 
-        file <- input$upload
-        ext <- tools::file_ext(file$datapath)
+        file_upload <- input$upload
+        ext <- tools::file_ext(file_upload$datapath)
 
-        req(file)
+        req(file_upload)
         validate(need(ext == "csv", "Please upload a csv file"))
 
         #pre-process upload and validate user-entered inputs for each marker
-        user_query_upload <- validate_marker_query(process_upload(file$datapath), input_type = "csv")
+        user_query_upload <- validate_marker_query(process_upload(file_upload$datapath), input_type = "csv")
         user_query_upload <- process_query(query = as.data.frame(user_query_upload),
                                            include_amel = input$count_amel,
                                            scoring_algorithm = sub("_.*", "", input$score),
@@ -382,13 +435,22 @@ myModuleServer <- function(id, dataset) {
         ) %>%
           formatStyle(
             "Score",
-            background = styleColorBar(user_query_upload$Score, "#dde0ed"),
-            backgroundSize = "100% 90%",
+            background = styleColorBar(c(0,100), "#dde0ed"),
+            backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"
           )
 
       })
+
+      # sample csv download
+      output$download_template <- downloadHandler(
+        filename = "single_query_blank_template.csv",
+
+        content = function(file) {
+          write.csv(read.csv("./data/single_query_blank_template.csv"), file, row.names = FALSE)
+        }
+      )
 
       observe({
         shinyjs::toggle(id = "filtered_data",
@@ -402,6 +464,74 @@ myModuleServer <- function(id, dataset) {
         )
       })
 
+    }
+  )
+}
+
+########################################## MULTI-QUERY SERVER ############################################
+
+myModuleServer_multi_query <- function(id, dataset) {
+  moduleServer(
+    id,
+    function(input, output, session) {
+
+      output$score_summary_multi_query_csv <- DT::renderDT({
+
+        file_upload <- input$upload_multi
+        ext <- tools::file_ext(file_upload$datapath)
+
+        req(file_upload)
+        validate(need(ext == "csv", "Please upload a csv file"))
+
+        #process multi-query upload
+        user_multi_query_upload <- process_multi_query(file_upload$datapath,
+                                                       include_amel = input$count_amel_multi,
+                                                       scoring_algorithm = sub("_.*", "", input$score_multi),
+                                                       masters_denominator = sub(".*_", "", input$score_multi))
+
+        # output for summary scores
+        summary_scores <- summarize_multi_query(user_multi_query_upload)
+
+        DT::datatable(summary_scores,
+                      rownames = TRUE,
+                      options = list(
+                        pageLength = 50,
+                        scrollX = TRUE,
+                        escape = TRUE),
+        ) %>%
+          formatStyle(
+            names(summary_scores),
+            background = styleColorBar(c(0,100), "#dde0ed"),
+            backgroundSize = "98% 88%",
+            backgroundRepeat = "no-repeat",
+            backgroundPosition = "center"
+          )
+
+      })
+
+
+      output$download_processed_data <- downloadHandler(
+        filename = "GBM_PDX_STR_multi_query.xlsx",
+
+        content = function(file) {
+
+          #TODO: add checker to ensure input$upload_multi is not empty so we have a user-friendly error message
+          file_upload <- input$upload_multi
+          ext <- tools::file_ext(file_upload$datapath)
+
+          req(file_upload)
+          validate(need(ext == "csv", "Please upload a csv file"))
+
+          #process multi-query upload
+          user_multi_query_upload <- process_multi_query(file_upload$datapath,
+                                                         include_amel = input$count_amel_multi,
+                                                         scoring_algorithm = sub("_.*", "", input$score_multi),
+                                                         masters_denominator = sub(".*_", "", input$score_multi))
+
+          save_multi_query_workbook(user_multi_query_upload, file)
+
+        }
+      )
     }
   )
 }

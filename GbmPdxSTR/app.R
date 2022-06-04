@@ -22,6 +22,9 @@ source("./R/masters.R", local = TRUE)
 source("./R/add_scores.R", local = TRUE)
 source("./R/process_query.R", local = TRUE)
 source("./R/validate_marker_query.R", local = TRUE)
+source("./R/process_multi_query.R", local = TRUE)
+source("./R/summarize_multi_query.R", local = TRUE)
+source("./R/save_multi_query_workbook.R", local = TRUE)
 source("./R/app_modules.R", local = TRUE)
 
 #TODO: consider increasing max-width
@@ -51,6 +54,10 @@ ui <- function() {
       tabPanel(
         title = "STR Search",
         myModuleUI(id = "str_gbm")
+      ),
+      tabPanel(
+        title = "STR multi-query Search",
+        myModuleUI_multi_query(id = "str_gbm_multi_query")
       )
     ),
     tags$head(
@@ -73,14 +80,11 @@ server <- function(input, output, session) {
     dataset = gbmpdx_ref #TODO unneeded argument, here but reminder to add this to make it more modular (will need to modify functions)
   )
 
-  # sample csv download
-  output$download_template <- downloadHandler(
-    filename = "single_query_blank_template.csv",
-
-    content = function(file) {
-      write.csv(read.csv("./data/single_query_blank_template.csv"), file, row.names = FALSE)
-    }
+  myModuleServer_multi_query(
+    id = "str_gbm_multi_query",
+    dataset = gbmpdx_ref #TODO unneeded argument, see reminder as above
   )
+
 }
 
 shinyApp(ui = ui, server = server)
