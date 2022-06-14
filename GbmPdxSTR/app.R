@@ -46,7 +46,7 @@ markers_ref <- colnames(gbmpdx_ref)
 ui <- function() {
   bootstrapPage("",
     useShinyjs(),
-    theme = bs_theme(bootswatch = "flatly"),
+    theme = bs_theme(bootswatch = "flatly", secondary = "#2C3E50"),
     navbarPage(
       title = "GBM PDX STR search tool",
       inverse = FALSE,

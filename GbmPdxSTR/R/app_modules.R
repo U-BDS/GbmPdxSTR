@@ -266,22 +266,30 @@ myModuleUI_multi_query <- function(id) {
                       value = TRUE,
                       width = "300px"
                     ),
+                    downloadButton(ns("download_template_multi"), "Download multi-query template csv file"),
+                    br(),
+                    br(),
              ),
              column(width = 6,
                     br(),
                     fileInput(
                       inputId = ns("upload_multi"),
-                      label = "Optionally, upload CSV file of multi-query data",
+                      label = "Upload CSV file of multi-query data",
                       multiple = FALSE,
                       accept = ".csv",
                       width = "400px"
                     ) %>%
                       shinyhelper::helper(icon = "info-circle",
                                           type = "markdown",
-                                          content = "csv_file_info" #TODO: change to reflect multi-query template
+                                          content = "multi_query_csv_file_info"
                       ),
-                    #downloadButton("download_template_multi", "Download multi-query template csv file"), #TODO consider moving this somewhere else or removing template here?
-                    downloadButton(ns("download_processed_data"), label = "Download multi-query detailed results"),
+                    br(),
+                    br(),
+                    downloadButton(ns("download_processed_data"), label = "Download multi-query detailed results") %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "download_multi_query"
+                      ),
              ),
     ),
     br(),
@@ -291,7 +299,6 @@ myModuleUI_multi_query <- function(id) {
     )
   )
 }
-
 
 #-------------------------------------------SERVER-----------------------------------------------------
 
@@ -515,7 +522,6 @@ myModuleServer_multi_query <- function(id, dataset) {
 
         content = function(file) {
 
-          #TODO: add checker to ensure input$upload_multi is not empty so we have a user-friendly error message
           file_upload <- input$upload_multi
           ext <- tools::file_ext(file_upload$datapath)
 
@@ -530,6 +536,25 @@ myModuleServer_multi_query <- function(id, dataset) {
 
           save_multi_query_workbook(user_multi_query_upload, file)
 
+        }
+      )
+
+      # only enables download results if file has first been uploaded
+      multi_query_present <- reactive(!is.null(input$upload_multi))
+      observe({
+        if (multi_query_present()) {
+          shinyjs::enable("download_processed_data")
+        } else {
+          shinyjs::disable("download_processed_data")
+        }
+      })
+
+      # sample csv download
+      output$download_template_multi <- downloadHandler(
+        filename = "multi_query_blank_template.csv",
+
+        content = function(file) {
+          write.csv(read.csv("./data/multi_query_blank_template.csv"), file, row.names = FALSE)
         }
       )
     }
