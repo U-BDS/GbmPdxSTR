@@ -9,7 +9,7 @@ To enable improved tracking of tumor line identity and provide collaborators to 
 
 ### Reference set
 
-The reference set of GBM PDX tumors include the following:
+The default reference set of GBM PDX tumors include the following:
 
 <!-- Tip: use VS code CSV to Markdown Table converter for quick conversion -->
 <!-- file STR_GBM_PDX_Standards_metadata_overview.csv used as input -->
@@ -57,6 +57,8 @@ The reference set of GBM PDX tumors include the following:
 `J` refers to Dr. Jann Sarkaria, who provided the Mayo Clinic tumors.
 
 `X` indicates the sample is a xenograph.
+
+Custom tumor line references containing the markers present in the app is also supported in the `STR multi-query Search` tab. If you would like to see your reference integrated into the app's default reference please contact Dr. Chris Willey.
 
 ### Contact information
 
