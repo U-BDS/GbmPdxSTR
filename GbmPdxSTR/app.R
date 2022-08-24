@@ -76,13 +76,11 @@ server <- function(input, output, session) {
   shinyhelper::observe_helpers(help_dir = "helpfiles", withMathJax = TRUE)
 
   myModuleServer(
-    id = "str_gbm",
-    dataset = gbmpdx_ref #TODO unneeded argument, here but reminder to add this to make it more modular (will need to modify functions)
+    id = "str_gbm"
   )
 
   myModuleServer_multi_query(
-    id = "str_gbm_multi_query",
-    dataset = gbmpdx_ref #TODO unneeded argument, see reminder as above
+    id = "str_gbm_multi_query"
   )
 
 }

@@ -199,7 +199,7 @@ myModuleUI <- function(id) {
                     fileInput(
                       inputId = ns("upload"),
                       label = "Optionally, upload CSV file of single-query data",
-                      multiple = FALSE, #TODO: will enable this once I move on to multi-query entries phase
+                      multiple = FALSE,
                       accept = ".csv",
                       width = "400px"
                     ) %>%
@@ -266,12 +266,32 @@ myModuleUI_multi_query <- function(id) {
                       value = TRUE,
                       width = "300px"
                     ),
-                    downloadButton(ns("download_template_multi"), "Download multi-query template csv file"),
-                    br(),
-                    br(),
+                    selectInput(inputId = ns("reference_choice"),
+                                label = "Choose to score based on app's reference (default) or custom reference",
+                                choices = c("Default", "Custom"),
+                                selected = c("Default"),
+                                multiple = FALSE),
+
+                    #------- conditional panel based on user choice of reference-------
+
+                    conditionalPanel(
+                      condition = "input.reference_choice.indexOf('Custom') > -1",
+                      fileInput(
+                        inputId = ns("upload_reference"),
+                        label = "Upload CSV file of custom reference",
+                        multiple = FALSE,
+                        accept = ".csv",
+                        width = "400px"
+                      ),
+                      ns = ns), #TODO: add helper doc on custom reference
              ),
              column(width = 6,
                     br(),
+
+                    downloadButton(ns("download_template_multi"), "Download multi-query template csv file"),
+                    br(),
+                    br(),
+
                     fileInput(
                       inputId = ns("upload_multi"),
                       label = "Upload CSV file of multi-query data",
@@ -283,8 +303,7 @@ myModuleUI_multi_query <- function(id) {
                                           type = "markdown",
                                           content = "multi_query_csv_file_info"
                       ),
-                    br(),
-                    br(),
+
                     downloadButton(ns("download_processed_data"), label = "Download multi-query detailed results") %>%
                       shinyhelper::helper(icon = "info-circle",
                                           type = "markdown",
@@ -304,7 +323,7 @@ myModuleUI_multi_query <- function(id) {
 
 ## TODO: query below should be concat of all options
 
-myModuleServer <- function(id, dataset) {
+myModuleServer <- function(id) {
   moduleServer(
     id,
     function(input, output, session) {
@@ -408,7 +427,7 @@ myModuleServer <- function(id, dataset) {
         ) %>%
           formatStyle(
             "Score",
-            background = styleColorBar(c(0,100), "#dde0ed"), # use expected range from 0-100 for consistancy across entire app
+            background = styleColorBar(c(0,100), "#dde0ed"), # use expected range from 0-100 for consistency across entire app
             backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"
@@ -477,22 +496,37 @@ myModuleServer <- function(id, dataset) {
 
 ########################################## MULTI-QUERY SERVER ############################################
 
-myModuleServer_multi_query <- function(id, dataset) {
+myModuleServer_multi_query <- function(id) {
   moduleServer(
     id,
     function(input, output, session) {
 
       output$score_summary_multi_query_csv <- DT::renderDT({
 
+        #initial validation of multi-query upload
         file_upload <- input$upload_multi
         ext <- tools::file_ext(file_upload$datapath)
 
         req(file_upload)
         validate(need(ext == "csv", "Please upload a csv file"))
 
+        # initial validation of reference upload and proper argument setting
+        if (input$reference_choice == "Custom") {
+          ref_upload <- input$upload_reference
+          ext <- tools::file_ext(ref_upload$datapath)
+
+          req(ref_upload)
+          validate(need(ext == "csv", "Please upload a csv file"))
+
+          reference <- ref_upload$datapath
+        } else {
+          reference <- "app_reference"
+        }
+
         #process multi-query upload
         user_multi_query_upload <- process_multi_query(file_upload$datapath,
                                                        include_amel = input$count_amel_multi,
+                                                       reference = reference,
                                                        scoring_algorithm = sub("_.*", "", input$score_multi),
                                                        masters_denominator = sub(".*_", "", input$score_multi))
 
@@ -522,15 +556,30 @@ myModuleServer_multi_query <- function(id, dataset) {
 
         content = function(file) {
 
+          #initial validation of multi-query upload
           file_upload <- input$upload_multi
           ext <- tools::file_ext(file_upload$datapath)
 
           req(file_upload)
           validate(need(ext == "csv", "Please upload a csv file"))
 
-          #process multi-query upload
+          # initial validation of reference upload and proper argument setting
+          if (input$reference_choice == "Custom") {
+            ref_upload <- input$upload_reference
+            ext <- tools::file_ext(ref_upload$datapath)
+
+            req(ref_upload)
+            validate(need(ext == "csv", "Please upload a csv file"))
+
+            reference <- ref_upload$datapath
+          } else {
+            reference <- "app_reference"
+          }
+
+          #process multi-query upload for eventual download
           user_multi_query_upload <- process_multi_query(file_upload$datapath,
                                                          include_amel = input$count_amel_multi,
+                                                         reference = reference,
                                                          scoring_algorithm = sub("_.*", "", input$score_multi),
                                                          masters_denominator = sub(".*_", "", input$score_multi))
 

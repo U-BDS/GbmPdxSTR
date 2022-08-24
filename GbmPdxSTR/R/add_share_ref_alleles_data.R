@@ -4,7 +4,9 @@
 #' transformed to the format which will be viewed in the app -
 #' e.g.: allele values being comma separated
 #' @param query query data
-#' reference data (`gbmpdx_ref`) is expected to be present in the env. of the app
+#' @param include_amel TRUE or FALSE to include Amel in score computation
+#' @param reference to be implemented in STR search. May be the built-in reference from the app
+#' or a custom tumor line reference with the same STR markers used in the app reference
 #'
 #' @return A new reference data.frame containing the number of shared alleles (vs query)
 #' and total alleles per marker in the data.frame format needed by the app
@@ -14,14 +16,51 @@
 #' \dontrun{
 #' add_share_ref_alleles_data(query)
 #' }
-add_share_ref_alleles_data <- function(query, include_amel = TRUE) {
+add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "app_reference") {
   shared_alleles_list <- list()
   total_alleles_ref_list <- list()
 
+  #----- evaluate choice of reference -----
+
+  if (reference == "app_reference") {
+    reference <- gbmpdx_ref
+  } else {
+
+    # custom reference should meet standard app requirements (similar to multi-query but
+    # with the goal here to have in the same initial format as the build-in reference)
+    # in this case reference should be path to csv containing additional tumor lines
+    reference <- process_upload(reference)
+
+    #save col names
+
+    reference_cols <- colnames(reference)
+
+    reference_list <- setNames(split(reference, seq(nrow(reference))), rownames(reference))
+
+    # validate entries in custom reference
+    reference_list <- mapply(FUN = function(x) {
+
+      x <- validate_marker_query(x, input_type = "csv")
+
+      return(x)
+    }, x = reference_list, SIMPLIFY = FALSE)
+
+    # in this case let's for now go back to a d.f
+    reference <- data.frame(matrix(unlist(reference_list),
+                                   nrow=length(reference_list),
+                                   byrow=TRUE),
+                            stringsAsFactors = FALSE,
+                            row.names = names(reference_list))
+
+    colnames(reference) <- reference_cols
+  }
+
+
+  #----------------------------------------
   message("processing query vs reference")
 
   # computing information for shared alleles and all references
-  for (gbm in rownames(gbmpdx_ref)) {
+  for (gbm in rownames(reference)) {
     #message(paste0("processing query vs reference ", gbm))
 
     tmp_marker_data_share <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
@@ -35,7 +74,7 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE) {
         na.omit(
           intersect(
             strsplit(query[rownames(query), marker], split = ",")[[1]],
-            strsplit(gbmpdx_ref[gbm, marker], split = ",")[[1]]
+            strsplit(reference[gbm, marker], split = ",")[[1]]
           )
         )
       )
@@ -43,7 +82,7 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE) {
       # compute total number of alleles for all gbms
       ref_total <- length(
         na.omit(
-          strsplit(gbmpdx_ref[gbm, marker], split = ",")[[1]]
+          strsplit(reference[gbm, marker], split = ",")[[1]]
         )
       )
 
@@ -78,7 +117,7 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE) {
 
   # create new d.f as part of output
 
-  gbmpdx_ref %>%
+  reference %>%
     tibble::rownames_to_column(var = "GBM") -> output_df
 
   output_df <- plyr::join_all(

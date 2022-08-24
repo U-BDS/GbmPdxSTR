@@ -12,13 +12,13 @@
 #' process_query(query, scoring_algorithm = "masters", masters_denominator = "query")
 #' process_query(query, scoring_algorithm = "masters", masters_denominator = "reference")
 #' }
-process_query <- function(query, include_amel = TRUE, ...) {
+process_query <- function(query, include_amel = TRUE, reference = "app_reference", ...) {
 
   # compiling everything to generate final single-query output
 
   # compute total and shared
   query_alleles_data <- add_query_alleles_data(query, include_amel = include_amel)
-  ref_alleles_data <- add_share_ref_alleles_data(query, include_amel = include_amel)
+  ref_alleles_data <- add_share_ref_alleles_data(query, include_amel = include_amel, reference = reference)
 
   # compute matching score
 
