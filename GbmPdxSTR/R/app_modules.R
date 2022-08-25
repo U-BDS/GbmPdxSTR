@@ -270,7 +270,11 @@ myModuleUI_multi_query <- function(id) {
                                 label = "Choose to score based on app's reference (default) or custom reference",
                                 choices = c("Default", "Custom"),
                                 selected = c("Default"),
-                                multiple = FALSE),
+                                multiple = FALSE)  %>%
+                      shinyhelper::helper(icon = "info-circle",
+                                          type = "markdown",
+                                          content = "custom_reference"
+                      ),
 
                     #------- conditional panel based on user choice of reference-------
 
@@ -283,7 +287,7 @@ myModuleUI_multi_query <- function(id) {
                         accept = ".csv",
                         width = "400px"
                       ),
-                      ns = ns), #TODO: add helper doc on custom reference
+                      ns = ns),
              ),
              column(width = 6,
                     br(),
