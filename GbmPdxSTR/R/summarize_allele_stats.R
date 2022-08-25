@@ -14,6 +14,8 @@
 #' }
 summarize_allele_stats <- function(allele_input, new_column_name, perform_binding = TRUE) {
 
+  stopifnot(is.logical(perform_binding))
+
   # instead of bind rows can also do.call(rbind,shared_alleles_list),
   # but faster with bind_rows...
   if (perform_binding == TRUE) {

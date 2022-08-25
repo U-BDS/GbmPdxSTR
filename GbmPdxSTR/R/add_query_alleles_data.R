@@ -2,6 +2,7 @@
 #' Adds the total number of alleles for the query and return a data.frame in the format
 #' which will be viewed in the app - e.g.: allele values being comma separated
 #' @param query query data
+#' @param include_amel logical indicating whether to include Amelogenin in score computation
 #'
 #' @return A new query data.frame containing the number of total alleles in the data.frame format
 #' needed by the app
@@ -12,6 +13,8 @@
 #' add_query_alleles_data(query)
 #' }
 add_query_alleles_data <- function(query, include_amel = TRUE) {
+
+  stopifnot(is.logical(include_amel))
 
   # compute total number of alleles for query
   total_alleles_query <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)

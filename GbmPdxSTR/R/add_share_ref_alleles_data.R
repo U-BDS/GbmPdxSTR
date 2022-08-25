@@ -4,7 +4,7 @@
 #' transformed to the format which will be viewed in the app -
 #' e.g.: allele values being comma separated
 #' @param query query data
-#' @param include_amel TRUE or FALSE to include Amel in score computation
+#' @param include_amel logical indicating whether to include Amelogenin in score computation
 #' @param reference to be implemented in STR search. May be the built-in reference from the app
 #' or a custom tumor line reference with the same STR markers used in the app reference
 #'
@@ -19,6 +19,8 @@
 add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "app_reference") {
   shared_alleles_list <- list()
   total_alleles_ref_list <- list()
+
+  stopifnot(is.logical(include_amel))
 
   #----- evaluate choice of reference -----
 
