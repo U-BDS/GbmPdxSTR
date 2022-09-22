@@ -2,11 +2,6 @@
 #-----------------------------------------global UI options----------------------------------------
 options(spinner.type = 1, spinner.color = "#232a30", spinner.size = 2)
 
-#-----------------------------------------global variables-----------------------------------------
-# use first entry from reference as values for placeholders for manual entries
-# ensure NA is quoted to make placeholder more clear (although blank entries are also read as NA)
-
-placeholders <- tidyr::replace_na(as.character(gbmpdx_ref[1,]), "NA")
 #-------------------------------------------UI-----------------------------------------------------
 
 # margin-left: auto; margin-right: auto; for centering all textInputs

@@ -40,9 +40,14 @@ gbmpdx_ref <- read.csv(
 
 # markers present in reference
 markers_ref <- colnames(gbmpdx_ref)
-# markers_ref <- markers_ref[-1]
 
-#----------------------- app -------------------------------
+#--------------------------global variables-----------------------------------
+# use first entry from reference as values for placeholders for manual entries
+# ensure NA is quoted to make placeholder more clear
+
+placeholders <- tidyr::replace_na(as.character(gbmpdx_ref[1,]), "NA")
+
+#------------------------------ app ------------------------------------------
 ui <- function() {
   bootstrapPage("",
     useShinyjs(),
