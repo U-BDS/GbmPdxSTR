@@ -55,11 +55,6 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
         )
 
         if (unique_entry != query[, i]) {
-          # showNotification(paste0("Homozygous alleles detected in ", query[, i] , " removing them now"),
-          #   type = "message",
-          #   duration = 8
-          # ) #TODO: if issue with eventReactive is resolved, re-enable this
-
           query[, i] <- unique_entry
         }
       }
