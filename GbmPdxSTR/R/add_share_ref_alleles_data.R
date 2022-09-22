@@ -59,11 +59,10 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "
 
 
   #----------------------------------------
-  message("processing query vs reference")
+  #message("processing query vs reference")
 
   # computing information for shared alleles and all references
   for (gbm in rownames(reference)) {
-    #message(paste0("processing query vs reference ", gbm))
 
     tmp_marker_data_share <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
     tmp_marker_data_ref <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
