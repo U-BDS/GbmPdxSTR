@@ -11,6 +11,7 @@
 #' @return A new reference data.frame containing the number of shared alleles (vs query)
 #' and total alleles per marker in the data.frame format needed by the app
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{

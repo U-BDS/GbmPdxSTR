@@ -7,6 +7,7 @@
 #' @return A new query data.frame containing the number of total alleles in the data.frame format
 #' needed by the app
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
@@ -32,7 +33,7 @@ add_query_alleles_data <- function(query, include_amel = TRUE) {
   }
 
   if (include_amel == FALSE) {
-    total_alleles_query <- select(total_alleles_query, -Amel)
+    total_alleles_query <- dplyr::select(total_alleles_query, -Amel)
   }
 
   # summarizing the data

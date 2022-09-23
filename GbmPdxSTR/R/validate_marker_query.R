@@ -15,9 +15,9 @@ validate_marker_query <- function(query, input_type = c("manual_entry", "csv")) 
   input_type <- match.arg(input_type)
 
   # remove any empty spaces if present
-  query <- mutate(
+  query <- dplyr::mutate(
     query,
-    across(where(is.character), stringr::str_remove_all, pattern = stringr::fixed(" "))
+    dplyr::across(where(is.character), stringr::str_remove_all, pattern = stringr::fixed(" "))
   )
 
   # ensure any empty entries or "NA" (strings) are NAs

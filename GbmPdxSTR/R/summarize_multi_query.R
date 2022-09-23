@@ -4,6 +4,7 @@
 #'
 #' @return A data.frame which contains summary scores of each STR marker per sample.
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{

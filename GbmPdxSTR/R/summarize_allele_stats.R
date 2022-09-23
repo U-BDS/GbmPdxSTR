@@ -7,6 +7,7 @@
 #'
 #' @return A data frame of summarized allelic information
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
@@ -24,7 +25,7 @@ summarize_allele_stats <- function(allele_input, new_column_name, perform_bindin
 
   allele_input %>%
     tibble::column_to_rownames(var = "GBM") %>% # tmp to avoid index for rowsums
-    mutate({{new_column_name}} := rowSums(.)) %>%
+    dplyr::mutate({{new_column_name}} := rowSums(.)) %>%
     tibble::rownames_to_column(var = "GBM") %>%
     # subset only to the new_column_name
     .[,c("GBM",new_column_name)] -> summarized_allele_df

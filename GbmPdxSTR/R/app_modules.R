@@ -1,3 +1,7 @@
+#' @import shiny
+#' @import markdown
+#' @import dplyr
+
 # app modules
 #-----------------------------------------global UI options----------------------------------------
 options(spinner.type = 1, spinner.color = "#232a30", spinner.size = 2)
@@ -227,9 +231,9 @@ myModuleServer <- function(id) {
                         rowGroup = list(dataSrc = 2), # index here based is 0 based, not R based (index for `data_type` col)
                         escape = TRUE),
         ) %>%
-          formatStyle(
+          DT::formatStyle(
             "Score",
-            background = styleColorBar(c(0,100), "#dde0ed"), # use expected range from 0-100 for consistency across entire app
+            background = DT::styleColorBar(c(0,100), "#dde0ed"), # use expected range from 0-100 for consistency across entire app
             backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"
@@ -261,9 +265,9 @@ myModuleServer <- function(id) {
                         rowGroup = list(dataSrc = 2),
                         escape = TRUE),
         ) %>%
-          formatStyle(
+          DT::formatStyle(
             "Score",
-            background = styleColorBar(c(0,100), "#dde0ed"),
+            background = DT::styleColorBar(c(0,100), "#dde0ed"),
             backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"
@@ -342,9 +346,9 @@ myModuleServer_multi_query <- function(id) {
                         scrollX = TRUE,
                         escape = TRUE),
         ) %>%
-          formatStyle(
+          DT::formatStyle(
             names(summary_scores),
-            background = styleColorBar(c(0,100), "#dde0ed"),
+            background = DT::styleColorBar(c(0,100), "#dde0ed"),
             backgroundSize = "98% 88%",
             backgroundRepeat = "no-repeat",
             backgroundPosition = "center"

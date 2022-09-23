@@ -24,6 +24,7 @@ add_header <- function(df) {
 #'
 #' @return A data.frame in the format that expected for further processing within the app
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
