@@ -21,6 +21,6 @@ It will also ensure that homozygous alleles are counted as one, and handles any 
 }
 \examples{
 \dontrun{
-process_upload("./data/single_query_example.csv"))
+process_upload("./data/single_query_example.csv")
 }
 }

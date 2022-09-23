@@ -22,5 +22,5 @@ tanabe
 Tanabe match algorithm for STR profiling. Computes and return the score
 }
 \examples{
-tanabe(query_total_allele = 15,reference_total_allele = 16,shared_allele = 13)
+tanabe(query_total_allele = 15, reference_total_allele = 16, shared_allele = 13)
 }

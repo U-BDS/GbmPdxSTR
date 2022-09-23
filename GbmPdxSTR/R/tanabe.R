@@ -7,7 +7,7 @@
 #' @return Tanabe score
 #' @export
 #'
-#' @examples tanabe(query_total_allele = 15,reference_total_allele = 16,shared_allele = 13)
+#' @examples tanabe(query_total_allele = 15, reference_total_allele = 16, shared_allele = 13)
 tanabe <- function(query_total_allele,
                    reference_total_allele,
                    shared_allele) {

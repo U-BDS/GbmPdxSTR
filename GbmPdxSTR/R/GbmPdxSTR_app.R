@@ -8,9 +8,10 @@
 #' @rawNamespace import(shinyjs, except = runExample)
 #'
 #' @examples
+#' \dontrun{
 #' GbmPdxSTR()
+#' }
 GbmPdxSTR <- function(...) {
-
   ui <- function() {
     bootstrapPage("",
       useShinyjs(),
@@ -50,7 +51,6 @@ GbmPdxSTR <- function(...) {
     myModuleServer_multi_query(
       id = "str_gbm_multi_query"
     )
-
   }
 
   shinyApp(ui = ui, server = server)

@@ -31,8 +31,10 @@ Adds matching scores between query and reference to the reference data containin
 }
 \examples{
 \dontrun{
-add_scores(ref_alleles_data = add_share_ref_alleles_data(query),
-query_alleles_data = add_query_alleles_data(query),
-scoring_algorithm = "tanabe")
+add_scores(
+  ref_alleles_data = add_share_ref_alleles_data(query),
+  query_alleles_data = add_query_alleles_data(query),
+  scoring_algorithm = "tanabe"
+)
 }
 }

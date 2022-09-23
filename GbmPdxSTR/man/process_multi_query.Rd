@@ -21,8 +21,14 @@ Process multi-queries from a csv file
 }
 \examples{
 \dontrun{
-process_multi_query("./data/multi_query_example.csv") #default params
-process_multi_query("./data/multi_query_example.csv", include_amel = TRUE, scoring_algorithm = "tanabe") #same as default
-process_multi_query("./data/multi_query_example.csv", include_amel = FALSE, scoring_algorithm = "masters", masters_denominator = "query")
+process_multi_query("./data/multi_query_example.csv") # default params
+process_multi_query("./data/multi_query_example.csv",
+  include_amel = TRUE,
+  scoring_algorithm = "tanabe"
+) # same as default
+process_multi_query("./data/multi_query_example.csv",
+  include_amel = FALSE,
+  scoring_algorithm = "masters", masters_denominator = "query"
+)
 }
 }

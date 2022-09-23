@@ -11,10 +11,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' summarize_allele_stats(shared_alleles_list, new_column_name="shared_alleles")
+#' summarize_allele_stats(shared_alleles_list, new_column_name = "shared_alleles")
 #' }
 summarize_allele_stats <- function(allele_input, new_column_name, perform_binding = TRUE) {
-
   stopifnot(is.logical(perform_binding))
 
   # instead of bind rows can also do.call(rbind,shared_alleles_list),
@@ -25,10 +24,10 @@ summarize_allele_stats <- function(allele_input, new_column_name, perform_bindin
 
   allele_input %>%
     tibble::column_to_rownames(var = "GBM") %>% # tmp to avoid index for rowsums
-    dplyr::mutate({{new_column_name}} := rowSums(.)) %>%
+    dplyr::mutate({{ new_column_name }} := rowSums(.)) %>%
     tibble::rownames_to_column(var = "GBM") %>%
     # subset only to the new_column_name
-    .[,c("GBM",new_column_name)] -> summarized_allele_df
+    .[, c("GBM", new_column_name)] -> summarized_allele_df
 
   return(summarized_allele_df)
 }

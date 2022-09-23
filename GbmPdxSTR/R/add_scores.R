@@ -11,9 +11,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' add_scores(ref_alleles_data = add_share_ref_alleles_data(query),
-#' query_alleles_data = add_query_alleles_data(query),
-#' scoring_algorithm = "tanabe")
+#' add_scores(
+#'   ref_alleles_data = add_share_ref_alleles_data(query),
+#'   query_alleles_data = add_query_alleles_data(query),
+#'   scoring_algorithm = "tanabe"
+#' )
 #' }
 add_scores <- function(ref_alleles_data,
                        query_alleles_data,
@@ -34,7 +36,7 @@ add_scores <- function(ref_alleles_data,
     ref_alleles_data$Score <- round(
       apply(
         subset(ref_alleles_data,
-               select = c("shared_alleles", "total_alleles")
+          select = c("shared_alleles", "total_alleles")
         ),
         MARGIN = 1,
         function(x) {
@@ -54,7 +56,7 @@ add_scores <- function(ref_alleles_data,
       ref_alleles_data$Score <- round(
         apply(
           subset(ref_alleles_data,
-                 select = c("shared_alleles")
+            select = c("shared_alleles")
           ),
           MARGIN = 1,
           function(x) {
@@ -70,7 +72,7 @@ add_scores <- function(ref_alleles_data,
       ref_alleles_data$Score <- round(
         apply(
           subset(ref_alleles_data,
-                 select = c("shared_alleles", "total_alleles")
+            select = c("shared_alleles", "total_alleles")
           ),
           MARGIN = 1,
           function(x) {

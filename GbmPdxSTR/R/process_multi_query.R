@@ -9,12 +9,17 @@
 #'
 #' @examples
 #' \dontrun{
-#' process_multi_query("./data/multi_query_example.csv") #default params
-#' process_multi_query("./data/multi_query_example.csv", include_amel = TRUE, scoring_algorithm = "tanabe") #same as default
-#' process_multi_query("./data/multi_query_example.csv", include_amel = FALSE, scoring_algorithm = "masters", masters_denominator = "query")
+#' process_multi_query("./data/multi_query_example.csv") # default params
+#' process_multi_query("./data/multi_query_example.csv",
+#'   include_amel = TRUE,
+#'   scoring_algorithm = "tanabe"
+#' ) # same as default
+#' process_multi_query("./data/multi_query_example.csv",
+#'   include_amel = FALSE,
+#'   scoring_algorithm = "masters", masters_denominator = "query"
+#' )
 #' }
 process_multi_query <- function(input_path, ...) {
-
   multi_query <- process_upload(input_path)
 
   # make list out of the uploaded multi-query
@@ -30,9 +35,7 @@ process_multi_query <- function(input_path, ...) {
     x <- process_query(query = as.data.frame(x), ...)
 
     return(x)
-
   }, x = multi_query_list, SIMPLIFY = FALSE)
 
   return(multi_query_list)
-
 }

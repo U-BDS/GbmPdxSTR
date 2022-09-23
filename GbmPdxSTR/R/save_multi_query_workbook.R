@@ -9,7 +9,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' save_multi_query_workbook(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
+#' save_multi_query_workbook(process_multi_query("./data/multi_query_example.csv"))
+#' # note nested `process_multi_query`
 #' }
 save_multi_query_workbook <- function(multi_query_list, file_output_name = "GBM_PDX_STR_multi_query.xlsx") {
 
@@ -18,14 +19,11 @@ save_multi_query_workbook <- function(multi_query_list, file_output_name = "GBM_
 
   # iterate over all elements of the list
   mapply(FUN = function(x, y) {
-
     openxlsx::addWorksheet(wb, sheetName = y)
 
     openxlsx::writeData(wb, sheet = y, x = x)
-
   }, x = multi_query_list, y = names(multi_query_list), SIMPLIFY = FALSE)
 
   # save as excel
   openxlsx::saveWorkbook(wb, file = file_output_name, overwrite = TRUE)
-
 }

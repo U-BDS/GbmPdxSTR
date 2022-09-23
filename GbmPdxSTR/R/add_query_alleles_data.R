@@ -14,7 +14,6 @@
 #' add_query_alleles_data(query)
 #' }
 add_query_alleles_data <- function(query, include_amel = TRUE) {
-
   stopifnot(is.logical(include_amel))
 
   # compute total number of alleles for query

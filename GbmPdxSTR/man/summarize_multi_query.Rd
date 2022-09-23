@@ -19,6 +19,7 @@ Provides a summary of the scores from a multi-query search
 }
 \examples{
 \dontrun{
-summarize_multi_query(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
+summarize_multi_query(process_multi_query("./data/multi_query_example.csv"))
+# note nested `process_multi_query`
 }
 }

@@ -34,7 +34,7 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "
     # in this case reference should be path to csv containing additional tumor lines
     reference <- process_upload(reference)
 
-    #save col names
+    # save col names
 
     reference_cols <- colnames(reference)
 
@@ -42,7 +42,6 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "
 
     # validate entries in custom reference
     reference_list <- mapply(FUN = function(x) {
-
       x <- validate_marker_query(x, input_type = "csv")
 
       return(x)
@@ -50,21 +49,22 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "
 
     # in this case let's for now go back to a d.f
     reference <- data.frame(matrix(unlist(reference_list),
-                                   nrow=length(reference_list),
-                                   byrow=TRUE),
-                            stringsAsFactors = FALSE,
-                            row.names = names(reference_list))
+      nrow = length(reference_list),
+      byrow = TRUE
+    ),
+    stringsAsFactors = FALSE,
+    row.names = names(reference_list)
+    )
 
     colnames(reference) <- reference_cols
   }
 
 
   #----------------------------------------
-  #message("processing query vs reference")
+  # message("processing query vs reference")
 
   # computing information for shared alleles and all references
   for (gbm in rownames(reference)) {
-
     tmp_marker_data_share <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
     tmp_marker_data_ref <- setNames(data.frame(matrix(ncol = length(markers_ref), nrow = 1)), markers_ref)
 
@@ -101,9 +101,13 @@ add_share_ref_alleles_data <- function(query, include_amel = TRUE, reference = "
   }
 
   if (include_amel == FALSE) {
-    shared_alleles_list <- lapply(X = shared_alleles_list, FUN = function(x) {select(x, -Amel)})
+    shared_alleles_list <- lapply(X = shared_alleles_list, FUN = function(x) {
+      select(x, -Amel)
+    })
 
-    total_alleles_ref_list <- lapply(X = total_alleles_ref_list, FUN = function(x) {select(x, -Amel)})
+    total_alleles_ref_list <- lapply(X = total_alleles_ref_list, FUN = function(x) {
+      select(x, -Amel)
+    })
   }
 
   # summarizing the data

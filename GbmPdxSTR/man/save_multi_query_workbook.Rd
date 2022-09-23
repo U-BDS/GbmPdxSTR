@@ -24,6 +24,7 @@ Saves a processed multi-query to an Excel spreadsheet where each resulting query
 }
 \examples{
 \dontrun{
-save_multi_query_workbook(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
+save_multi_query_workbook(process_multi_query("./data/multi_query_example.csv"))
+# note nested `process_multi_query`
 }
 }

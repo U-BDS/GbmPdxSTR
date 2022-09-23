@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' add_header(user_df))
+#' add_header(user_df)
 #' }
 add_header <- function(df) {
   names(df) <- as.character(unlist(df[1, ]))
@@ -28,12 +28,12 @@ add_header <- function(df) {
 #'
 #' @examples
 #' \dontrun{
-#' process_upload("./data/single_query_example.csv"))
+#' process_upload("./data/single_query_example.csv")
 #' }
 process_upload <- function(input_path) {
 
   # process upload to add it to expected format (wider and comma-separated per allele)
-  user_query_upload <- read.csv(input_path, header = TRUE, colClasses = "character")
+  user_query_upload <- utils::read.csv(input_path, header = TRUE, colClasses = "character")
 
   # check that expected columns are present
 
@@ -42,7 +42,7 @@ process_upload <- function(input_path) {
       message = paste0(
         "Unexpected number of columns found! Ensure there are 6 columns ",
         "named GBM, Marker, Allele_1, Allele_2, Allele_3, Allele_4"
-        )
+      )
     )
   )
 

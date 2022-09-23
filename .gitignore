@@ -6,6 +6,6 @@
 .Rproj.user
 GbmPdxSTR/shiny_app_logs/*.log
 GbmPdxSTR/*.Rprofvis
-GbmPdxSTR/data/initial_data_prep/
+GbmPdxSTR/inst/extdata/initial_data_prep/
 GbmPdxSTR/app_cache/*
 GbmPdxSTR/*.xlsx

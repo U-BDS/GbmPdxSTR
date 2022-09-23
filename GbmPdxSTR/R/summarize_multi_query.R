@@ -8,10 +8,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' summarize_multi_query(process_multi_query("./data/multi_query_example.csv")) #note nested `process_multi_query`
+#' summarize_multi_query(process_multi_query("./data/multi_query_example.csv"))
+#' # note nested `process_multi_query`
 #' }
 summarize_multi_query <- function(multi_query_list) {
-
   scores_list <- mapply(FUN = function(x) {
     # selecting only columns for score summary
     x <- dplyr::select(x, GBM, Score, data_type)
@@ -43,5 +43,4 @@ summarize_multi_query <- function(multi_query_list) {
   score_summary[] <- lapply(score_summary, function(x) as.numeric(as.character(x)))
 
   return(score_summary)
-
 }

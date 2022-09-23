@@ -15,5 +15,7 @@ GbmPdxSTR
 Runs the GbmPdxSTR application
 }
 \examples{
+\dontrun{
 GbmPdxSTR()
+}
 }

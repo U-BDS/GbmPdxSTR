@@ -25,6 +25,6 @@ It's meant to be a helper function to other primary functions in the app
 }
 \examples{
 \dontrun{
-summarize_allele_stats(shared_alleles_list, new_column_name="shared_alleles")
+summarize_allele_stats(shared_alleles_list, new_column_name = "shared_alleles")
 }
 }

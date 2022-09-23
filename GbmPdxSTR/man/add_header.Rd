@@ -21,6 +21,6 @@ This is linked to preparing the query data when manually entered in the app.
 }
 \examples{
 \dontrun{
-add_header(user_df))
+add_header(user_df)
 }
 }
