@@ -36,3 +36,7 @@ gbmpdx_ref[gbmpdx_ref==""] <- NA
 gbmpdx_ref
 
 write.csv(gbmpdx_ref, "../data/STR_GBM_PDX_Standards_wide.csv", row.names = FALSE)
+
+#------ save as data to be part of the package dataset -----
+
+usethis::use_data(gbmpdx_ref, version = 3)

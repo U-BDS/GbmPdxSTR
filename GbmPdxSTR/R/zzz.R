@@ -1,12 +1,11 @@
 .onLoad = function (libname, pkgname) {
 
-  #TODO: dataset gbmpdx_ref will be converted to package dataset ; import here is tmp
-  assign("gbmpdx_ref", read.csv(
-    "./data/STR_GBM_PDX_Standards_wide.csv",
-    stringsAsFactors = FALSE,
-    colClasses = "character",
-    row.names = 1
-  ), envir = parent.env(environment()))
+  #NOTE: for now, will leave this data as being read by csv
+  assign("gbmpdx_ref", read.csv("./data/STR_GBM_PDX_Standards_wide.csv",
+                                stringsAsFactors = FALSE,
+                                colClasses = "character",
+                                row.names = 1),
+         envir = parent.env(environment()))
 
   # markers present in reference
   assign("markers_ref", colnames(gbmpdx_ref), envir = parent.env(environment()))
