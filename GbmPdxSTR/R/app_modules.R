@@ -248,12 +248,14 @@ myModuleServer <- function(id) {
         DT::datatable(user_df,
           style = "default",
           rownames = FALSE,
-          extensions = "RowGroup",
+          extensions = c("RowGroup", "Buttons"),
           options = list(
             pageLength = 50,
             scrollX = TRUE,
             rowGroup = list(dataSrc = 2), # index here based is 0 based, not R based (index for `data_type` col)
-            escape = TRUE
+            escape = TRUE,
+            dom = "Bfrtip",
+            buttons = c("csv")
           ),
         ) %>%
           DT::formatStyle(
@@ -284,12 +286,14 @@ myModuleServer <- function(id) {
         DT::datatable(user_query_upload,
           style = "default",
           rownames = FALSE,
-          extensions = "RowGroup",
+          extensions = c("RowGroup", "Buttons"),
           options = list(
             pageLength = 50,
             scrollX = TRUE,
             rowGroup = list(dataSrc = 2),
-            escape = TRUE
+            escape = TRUE,
+            dom = "Bfrtip",
+            buttons = c("csv")
           ),
         ) %>%
           DT::formatStyle(
