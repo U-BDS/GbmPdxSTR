@@ -1,7 +1,7 @@
 ### File format for multi-query csv upload
 ___
 
-Multi-query must be uploaded via a csv file. Overal for the format is the same as the single-query csv, with the data for each sample concatenated into a single file. Please see the specifications below and the examples:
+Multi-query must be uploaded via a csv file. Overall for the format is the same as the single-query csv, with the data for each sample concatenated into a single file. Please see the specifications below and the examples:
 
 * Must be a `csv` file
 * Should contain the following column names: `GBM` (corresponds to sample names), `Marker` (corresponds to names of the markers), `Allele_1`, `Allele_2`, `Allele_3`, `Allele_4`
@@ -10,6 +10,7 @@ Multi-query must be uploaded via a csv file. Overal for the format is the same a
 * The marker `Amel` also contains the following aliases which may be used instead (will be auto-converted to `Amel`): `Amelogenin`, `AM`, `Aml`, `AMEL`
 * Similarly, the marker `Penta.D` has the alias `Penta D` and `Penta.E` has the alias `Penta E`
 * Each sample should be concatenated into the same file (one below another, see example below)
+* The maximum number of samples/GBM that can be processed together is 50. If you have more than 50 samples, the additional samples should be in separate upload (e.g.: for 100 samples, prepare two input files and perform two multi-query runs).
 * A properly formatted table example is:
 
 <style>

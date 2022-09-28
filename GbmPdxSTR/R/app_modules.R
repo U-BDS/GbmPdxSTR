@@ -4,7 +4,7 @@
 
 # app modules
 #-----------------------------------------global UI options----------------------------------------
-options(spinner.type = 1, spinner.color = "#232a30", spinner.size = 2)
+options(spinner.type = 6, spinner.color = "#2C3E50", spinner.size = 2)
 
 #-------------------------------------------UI-----------------------------------------------------
 
@@ -117,9 +117,7 @@ myModuleUI <- function(id) {
     ),
     br(),
     verticalLayout(
-      DT::DTOutput(ns("filtered_data")) # %>%
-      #   shinycssloaders::withSpinner(),
-      # ns = ns
+      DT::DTOutput(ns("filtered_data"))
     ),
     br(),
     verticalLayout(
@@ -217,7 +215,7 @@ myModuleUI_multi_query <- function(id) {
     br(),
     br(),
     verticalLayout(
-      DT::DTOutput(ns("score_summary_multi_query_csv"))
+      shinycssloaders::withSpinner(DT::DTOutput(ns("score_summary_multi_query_csv")))
     )
   )
 }
@@ -336,8 +334,9 @@ myModuleServer_multi_query <- function(id) {
   moduleServer(
     id,
     function(input, output, session) {
-      output$score_summary_multi_query_csv <- DT::renderDT({
 
+      # make it reactive to avoid repeating the multi-query process in download
+      multi_query_initial_process <- reactive({
         # initial validation of multi-query upload
         file_upload <- input$upload_multi
         ext <- tools::file_ext(file_upload$datapath)
@@ -365,9 +364,13 @@ myModuleServer_multi_query <- function(id) {
           scoring_algorithm = sub("_.*", "", input$score_multi),
           masters_denominator = sub(".*_", "", input$score_multi)
         )
+      })
+
+
+      output$score_summary_multi_query_csv <- DT::renderDT({
 
         # output for summary scores
-        summary_scores <- summarize_multi_query(user_multi_query_upload)
+        summary_scores <- summarize_multi_query(multi_query_initial_process())
 
         DT::datatable(summary_scores,
           style = "default",
@@ -391,36 +394,7 @@ myModuleServer_multi_query <- function(id) {
       output$download_processed_data <- downloadHandler(
         filename = "GBM_PDX_STR_multi_query.xlsx",
         content = function(file) {
-
-          # initial validation of multi-query upload
-          file_upload <- input$upload_multi
-          ext <- tools::file_ext(file_upload$datapath)
-
-          req(file_upload)
-          validate(need(ext == "csv", "Please upload a csv file"))
-
-          # initial validation of reference upload and proper argument setting
-          if (input$reference_choice == "Custom") {
-            ref_upload <- input$upload_reference
-            ext <- tools::file_ext(ref_upload$datapath)
-
-            req(ref_upload)
-            validate(need(ext == "csv", "Please upload a csv file"))
-
-            reference <- ref_upload$datapath
-          } else {
-            reference <- "app_reference"
-          }
-
-          # process multi-query upload for eventual download
-          user_multi_query_upload <- process_multi_query(file_upload$datapath,
-            include_amel = input$count_amel_multi,
-            reference = reference,
-            scoring_algorithm = sub("_.*", "", input$score_multi),
-            masters_denominator = sub(".*_", "", input$score_multi)
-          )
-
-          save_multi_query_workbook(user_multi_query_upload, file)
+          save_multi_query_workbook(multi_query_initial_process(), file)
         }
       )
 

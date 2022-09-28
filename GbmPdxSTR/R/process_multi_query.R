@@ -22,6 +22,18 @@
 process_multi_query <- function(input_path, ...) {
   multi_query <- process_upload(input_path)
 
+  # setting multi-query upload to 50 queries:
+
+  validate(
+    need(nrow(multi_query) <= 50,
+         message = paste0(
+           "Input multi-query is greater than 50! The maximun number on queries ",
+           "that can be uploaded at at time is 50. Please reduce your input to ",
+           "50 samples at a time."
+         )
+    )
+  )
+
   # make list out of the uploaded multi-query
   multi_query_list <- setNames(split(multi_query, seq(nrow(multi_query))), rownames(multi_query))
 
