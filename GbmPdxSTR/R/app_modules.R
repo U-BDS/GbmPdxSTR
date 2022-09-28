@@ -246,6 +246,7 @@ myModuleServer <- function(id) {
 
         # output as DT::datatable
         DT::datatable(user_df,
+          style = "default",
           rownames = FALSE,
           extensions = "RowGroup",
           options = list(
@@ -281,6 +282,7 @@ myModuleServer <- function(id) {
         )
 
         DT::datatable(user_query_upload,
+          style = "default",
           rownames = FALSE,
           extensions = "RowGroup",
           options = list(
@@ -364,6 +366,7 @@ myModuleServer_multi_query <- function(id) {
         summary_scores <- summarize_multi_query(user_multi_query_upload)
 
         DT::datatable(summary_scores,
+          style = "default",
           rownames = TRUE,
           options = list(
             pageLength = 50,
