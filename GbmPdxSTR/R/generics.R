@@ -63,6 +63,21 @@ process_upload <- function(input_path) {
   # remove any homozygous values if present (to be counted as one allele)
   user_query_upload <- as.data.frame(t(apply(user_query_upload, 1, function(x) replace(x, duplicated(x), NA))))
 
+  # validate that a sample name and/or marker per sample is not present more than once
+  # (would indicate duplicates in sample names and/or markers per sample)
+
+  user_query_upload %>%
+    count(GBM, Marker) -> sample_marker_count_check
+
+  validate(
+    need(all(sample_marker_count_check$n == 1),
+      message = paste0(
+        "It looks like you have duplicates in sample names and/or markers per sample. ",
+        "Ensure samples contain unique names and marker types."
+      )
+    )
+  )
+
   user_query_upload %>%
     dplyr::mutate_all(as.character) %>% # ensure all is character
     tidyr::unite(STR_data, -GBM, -Marker, remove = TRUE, na.rm = TRUE, sep = ",") %>%
