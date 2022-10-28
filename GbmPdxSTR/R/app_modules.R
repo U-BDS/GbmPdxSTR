@@ -3,6 +3,7 @@
 #' @import dplyr
 
 # app modules
+
 #-----------------------------------------global UI options----------------------------------------
 options(spinner.type = 6, spinner.color = "#2C3E50", spinner.size = 2)
 
@@ -357,44 +358,54 @@ myModuleServer_multi_query <- function(id) {
           reference <- "app_reference"
         }
 
+        file_datapath <- file_upload$datapath
+        amel_param <- input$count_amel_multi
+        score_param <- input$score_multi
+
+
         # process multi-query upload
-        user_multi_query_upload <- process_multi_query(file_upload$datapath,
-          include_amel = input$count_amel_multi,
-          reference = reference,
-          scoring_algorithm = sub("_.*", "", input$score_multi),
-          masters_denominator = sub(".*_", "", input$score_multi)
-        )
+        promises::future_promise({
+          process_multi_query(file_datapath,
+                              include_amel = amel_param,
+                              reference = reference,
+                              scoring_algorithm = sub("_.*", "", score_param),
+                              masters_denominator = sub(".*_", "", score_param)
+          )
+        }, seed = TRUE)
       })
 
 
       output$score_summary_multi_query_csv <- DT::renderDT({
 
-        # output for summary scores
-        summary_scores <- summarize_multi_query(multi_query_initial_process())
-
-        DT::datatable(summary_scores,
-          style = "default",
-          rownames = TRUE,
-          options = list(
-            pageLength = 50,
-            scrollX = TRUE,
-            escape = TRUE
-          ),
-        ) %>%
-          DT::formatStyle(
-            names(summary_scores),
-            background = DT::styleColorBar(c(0, 100), "#dde0ed"),
-            backgroundSize = "98% 88%",
-            backgroundRepeat = "no-repeat",
-            backgroundPosition = "center"
-          )
+        multi_query_initial_process() %...>%
+          summarize_multi_query() %...>%
+          {
+            summary_scores <- .
+            DT::datatable(summary_scores,
+              style = "default",
+              rownames = TRUE,
+              options = list(
+                pageLength = 50,
+                scrollX = TRUE,
+                escape = TRUE
+              ),
+             ) %>%
+               DT::formatStyle(
+                 names(summary_scores),
+                 background = DT::styleColorBar(c(0, 100), "#dde0ed"),
+                 backgroundSize = "98% 88%",
+                 backgroundRepeat = "no-repeat",
+                 backgroundPosition = "center"
+               )
+          }
       })
 
 
       output$download_processed_data <- downloadHandler(
         filename = "GBM_PDX_STR_multi_query.xlsx",
         content = function(file) {
-          save_multi_query_workbook(multi_query_initial_process(), file)
+          multi_query_initial_process() %...>%
+            save_multi_query_workbook(file)
         }
       )
 
