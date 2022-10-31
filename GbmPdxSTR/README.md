@@ -7,7 +7,7 @@ This app can be launched with the Docker image created from the Dockerfile in th
 ```bash
 cd GbmPdxSTR
 
-docker run -d --rm --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:0.2.0
+docker run -d --rm --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:0.3.0
 ```
 Then go to `http://localhost:3838/` from your browser.
 
@@ -30,5 +30,5 @@ Some brief instructions:
     * Start the container. Note the following use `--restart always` instead of `--rm`:
 
 ```bash
-sudo docker run -d --restart always --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:0.2.0
+sudo docker run -d --restart always --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:0.3.0
 ```

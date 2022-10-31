@@ -36,6 +36,7 @@ RUN R -e "install.packages('shinycssloaders')"
 RUN R -e "install.packages('plyr')"
 RUN R -e "install.packages('DT')"
 RUN R -e "install.packages('openxlsx')"
+RUN R -e "install.packages('future')"
 
 # port container listens to (default R Shiny port)
 EXPOSE 3838
