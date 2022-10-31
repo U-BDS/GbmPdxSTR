@@ -4,28 +4,28 @@ source("./global.R")
 
 ui <- function() {
   bootstrapPage("",
-                useShinyjs(),
-                theme = bs_theme(bootswatch = "flatly", secondary = "#2C3E50"),
-                navbarPage(
-                  title = "GBM PDX STR search tool",
-                  inverse = FALSE,
-                  home_description,
-                  tabPanel(
-                    title = "STR Search",
-                    myModuleUI(id = "str_gbm")
-                  ),
-                  tabPanel(
-                    title = "STR multi-query Search",
-                    myModuleUI_multi_query(id = "str_gbm_multi_query")
-                  )
-                ),
-                tags$head(
-                  tags$style(
-                    HTML(".shiny-output-error-validation {
+    useShinyjs(),
+    theme = bs_theme(bootswatch = "flatly", secondary = "#2C3E50"),
+    navbarPage(
+      title = "GBM PDX STR search tool",
+      inverse = FALSE,
+      home_description,
+      tabPanel(
+        title = "STR Search",
+        myModuleUI(id = "str_gbm")
+      ),
+      tabPanel(
+        title = "STR multi-query Search",
+        myModuleUI_multi_query(id = "str_gbm_multi_query")
+      )
+    ),
+    tags$head(
+      tags$style(
+        HTML(".shiny-output-error-validation {
                 color: black;
                                 }")
-                  )
-                )
+      )
+    )
   )
 }
 

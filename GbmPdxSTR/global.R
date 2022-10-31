@@ -35,4 +35,4 @@ markers_ref <- colnames(gbmpdx_ref)
 # use first entry from reference as values for placeholders for manual entries
 # ensure NA is quoted to make placeholder more clear
 
-placeholders <- tidyr::replace_na(as.character(gbmpdx_ref[1,]), "NA")
+placeholders <- tidyr::replace_na(as.character(gbmpdx_ref[1, ]), "NA")
