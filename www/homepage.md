@@ -64,6 +64,16 @@ Custom tumor line references containing the markers present in the app is also s
 
 Please feel free to contact the lead investigator, __Dr. Chris Willey__ if you have any general questions about our site or would like more information: `cwilley [at] uabmc.edu`
 ___
-### About the app and reporting issues
+### Issues
 
-This app was developed by Dr. Lara Ianov, from the [UAB Biological Data Science core](https://www.uab.edu/cores/ircp/bds), and the Civitan International Research Center. Please report any issues linked to the app to `lianov [at] uab.edu`
+If you encounter any errors or issues with the app, please open an issue to the git repository of this app located [here](https://github.com/U-BDS/GbmPdxSTR).
+___
+### About the app
+
+The GBM PDX STR Similarity Search Tool was written by [Dr. Lara Ianov](https://github.com/lianov).
+
+The app was written with support of [Dr. Chris Willey](https://scholars.uab.edu/display/cwilley), UAB and funding from the NIH U01 CA223976 grant.
+
+Aid with web-hosting was provided by [Austyn Trull](https://github.com/atrull314). We would like to thank the UAB Research Computing group for the UAB cloud resources being used to host this application.
+
+Lastly, Dr. Lara Ianov and Austyn Trull are members of the [UAB Biological Data Science core](https://www.uab.edu/cores/ircp/bds).

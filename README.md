@@ -1,34 +1,40 @@
-# App-specific documentation
+# GBM PDX STR Similarity Search Tool
 
+This web tool provides users with the ability to search for Short Tandem Repeat (STR) similarity between your sample (query) to the glioblastoma (GBM) patient-derived xenograft (PDX) tumors present at UAB. This tool is inspired by the [Cellosaurus CLASTR search tool](https://web.expasy.org/cellosaurus-str-search/).
+
+# App website
+
+__You may use the app by visiting the following URL: <https://gliomamodels.com/>__
+
+If you encounter any issues, please open an issue in this git repository describing the issue you encountered.
+
+____
 ## Launching the app from a personal computer
-This app can be launched with the Docker image created from the Dockerfile in this repo. Git clone this repo, and perform the following steps:
 
+__While we encourage most users to visit the URL above to use the app__, the app may also be launched from a personal computer with the following two steps:
+
+1. Git clone this repository (latest commit in the main branch) and navigate to the repository directory
+2. Launch the app's Docker container:
 
 ```bash
-cd GbmPdxSTR
-
-docker run -d --rm --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:0.3.0
+# ensure you are in the app's git repository
+docker run -d --rm --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:latest
 ```
+
 Then go to `http://localhost:3838/` from your browser.
 
-The Docker Hub link to the image repository is <https://hub.docker.com/r/uabbds/gbmpdxstr/tags>
+The Docker Hub link to the image repository is <https://hub.docker.com/r/uabbds/gbmpdxstr>. If you encounter a persmission issue with the `shiny_app_logs` directory, simply run `chmod 777 shiny_app_logs` prior to starting the Docker container
 
-## cloud.rc
-This app will be hosted in cloud.rc to aid in development and collaboration with the PI and other members involved. Ask Dr. Lara Ianov for the URL of the app in cloud.rc while the project is in the initial development phase.
+# Credits
 
-Some brief instructions:
+The GBM PDX STR Similarity Search Tool was written by [Dr. Lara Ianov](https://github.com/lianov).
 
-1. Launch an instance through Terraform - coordinate with Austyn for now and more details to come
+The app was written with support of [Dr. Chris Willey](https://scholars.uab.edu/display/cwilley), UAB and funding from the NIH U01 CA223976 grant.
 
-2. The following steps will be implemented with Ansible in the near future but for now they are:
+Aid with web-hosting was provided by [Austyn Trull](https://github.com/atrull314). We would like to thank the UAB Research Computing group for the UAB cloud resources being used to host this application.
 
-    * ssh into instance
-    * install docker
-    * git clone this repository
-    * `cd GbmPdxSTR`
-    * `chmod 777 shiny_app_logs`
-    * Start the container. Note the following use `--restart always` instead of `--rm`:
+Lastly, Dr. Lara Ianov and Austyn Trull are members of the [UAB Biological Data Science core](https://www.uab.edu/cores/ircp/bds). 
 
-```bash
-sudo docker run -d --restart always --user shiny -p 3838:3838 -v `pwd`:/srv/shiny-server/ -v `pwd`/shiny_app_logs:/var/log/shiny-server uabbds/gbmpdxstr:latest
-```
+<!--- Add zenodo doi below -->
+
+If this application benefits your work, we kindly ask to acknowledge the members outlined above, and the U-BDS core with the following id: `RRID:SCR_021766`.
