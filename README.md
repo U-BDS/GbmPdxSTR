@@ -33,8 +33,8 @@ The app was written with support of [Dr. Chris Willey](https://scholars.uab.edu/
 
 Aid with web-hosting was provided by [Austyn Trull](https://github.com/atrull314). We would like to thank the UAB Research Computing group for the UAB cloud resources being used to host this application.
 
-Lastly, Dr. Lara Ianov and Austyn Trull are members of the [UAB Biological Data Science core](https://www.uab.edu/cores/ircp/bds). 
+Lastly, Dr. Lara Ianov and Austyn Trull are members of the [UAB Biological Data Science core](https://www.uab.edu/cores/ircp/bds). The core facility RRID is `RRID:SCR_021766`.
 
-<!--- Add zenodo doi below -->
+# Citation
 
-If this application benefits your work, we kindly ask to acknowledge the members outlined above, and the U-BDS core with the following id: `RRID:SCR_021766`.
+If this application benefits your work, we kindly ask to acknowledge the app by including the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7776216.svg)](https://doi.org/10.5281/zenodo.7776216)
