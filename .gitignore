@@ -3,5 +3,10 @@
 .RData
 .bash_history
 .local
-./shiny_app_logs/*.log
-./gbm_pdx_str/*.Rprofvis
+.Rproj.user
+shiny_app_logs/*.log
+*.Rprofvis
+inst/extdata/initial_data_prep/
+inst/extdata/other_tests/
+app_cache/*
+*.xlsx
