@@ -4,8 +4,9 @@
 .bash_history
 .local
 .Rproj.user
-GbmPdxSTR/shiny_app_logs/*.log
-GbmPdxSTR/*.Rprofvis
-GbmPdxSTR/inst/extdata/initial_data_prep/
-GbmPdxSTR/app_cache/*
-GbmPdxSTR/*.xlsx
+shiny_app_logs/*.log
+*.Rprofvis
+inst/extdata/initial_data_prep/
+inst/extdata/other_tests/
+app_cache/*
+*.xlsx
